@@ -1,48 +1,107 @@
-  <div class="col-lg-12 col-12 layout-spacing">
+<div class="row">
+
+    <div class="col-md-4">
+
+          <div class="row">
+                        <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Form controls</h4>
+                                            <h4>مدیریت کشورها </h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content widget-content-area">
-                                    <form>
-                                        <div class="form-group mb-4">
-                                            <label for="exampleFormControlInput2">Email address</label>
-                                            <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+
+                                    <form wire:submit="submit(Object.fromEntries(new FormData($event.target)))" >
+                                        <div class="mb-4 row">
+                                          <div class="col-sm-12">
+                                            <label class="form-label" for="name">نام کشور</label>
+                                            <input type="text" class="form-control" wire:model='name'  id="name" name="name" placeholder="لطفا نام کشور خود را وارد کنید ">
+                                          </div>
                                         </div>
-                                        <div class="form-group mb-4">
-                                            <label for="exampleFormControlSelect1">Example select</label>
-                                            <select class="form-select" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group mb-4 mt-3">
-                                            <label for="exampleFormControlFile1">Example file input</label>
-                                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                        </div>
-                                        <input type="submit" name="time" class="mt-4 mb-4 btn btn-primary">
+                                        @error('name')
+                                         <div  class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                   stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert">
+                                                   <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18">
+                                                    </line></svg></button> <strong>
+
+                                                        </strong>{{ $message }}</div>
+                                        @enderror
+
+
+                                        <button type="submit" class="btn btn-primary">ثبت </button>
                                     </form>
+
+
+
                                 </div>
                             </div>
                         </div>
+
+
+    </div>
+    </div>
+    <div class="col-md-8">
+
+ <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>لیست کشورها</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                     <th scope="col">اسم کشور</th>
+
+
+                                                    <th class="text-center" scope="col">Status</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($countries as $country )
+                                                  <tr>
+                                                    <td>{{ $loop->index+1 }}</td>
+                                                    <td>{{ $country->name }}</td>
+
+
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0);" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                            </a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+
+    </div>
+
+    </div>
+

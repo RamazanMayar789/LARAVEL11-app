@@ -2,6 +2,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>Sales Admin | CORK - Multipurpose Bootstrap Dashboard Template </title>
+    <link rel="stylesheet" href="/font/Webfonts/fontiran.css">
+    <link rel="stylesheet" href="/font/webfonts/stylef.css">
     <link rel="icon" type="image/x-icon" href="/admin/src/assets/img/favicon.ico" />
     <link href="/admin/layouts/vertical-dark-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
     <link href="/admin/layouts/vertical-dark-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
@@ -21,3 +23,10 @@
     <link href="/admin/src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
     <link href="/admin/src/assets/css/dark/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+     <link rel="stylesheet" type="text/css" href="/admin/src/assets/css/light/elements/alert.css">
+    <link rel="stylesheet" type="text/css" href="/admin/src/assets/css/dark/elements/alert.css">
+    <link rel="stylesheet" href="/admin/src/plugins/src/sweetalerts2/sweetalerts2.css">
+     <link href="/admin/src/plugins/css/light/sweetalerts2/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/src/assets/css/light/scrollspyNav.css" rel="stylesheet" type="text/css" />
+ <link href="/admin/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css" rel="stylesheet" type="text/css" />
