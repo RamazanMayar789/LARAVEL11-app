@@ -4,45 +4,81 @@ namespace App\Livewire\Admin\Country;
 
 use App\Models\Country;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\On;
 
 class Index extends Component
 {
-public $name;
+   use WithPagination;
 
-    public function submit($FormData, Country $country){
+    public $name;
+    public $countryId;
+public $delete_id;
+
+
+
+
+
+    public function submit($FormData  ,Country $country)
+    {
 
         $validator = Validator::make($FormData, [
-            "name"=> "required|string|max:30|min:3",
-    ],
-    [
-        '*.required'=> 'لطفا نام کشور وارد کنید',
-        '*.string'=>'فرمت نام کشور نامتعبر است',
-        '*.max'=>'
+            'name' => 'required|string|max:30',
+        ], [
+            '*.required' => 'فیلد ضروری است.',
+            '*.string' => 'فرمت اشتباه است !',
+            '*.max' => 'حداکثر تعداد کاراکترها : 30',
+        ]);
 
-        حداکثر تعداد کاراکترها
-:30
-        ',
-        '*.min'=>'
-                    حداقل کاراکتر ها
-:3        '
-    ]);
+        $validator->validate();
 
-    $validator->validate();
-$country->submit($FormData);
-$this->reset();
-$this->dispatch('success','عملیات افزودن موفقانه انجام شد!');
+        $country->submit($FormData,$this->countryId);
+        $this->reset();
+        $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
+
+    }
+    public function deleteConfirmation($id){
+
+        $this->delete_id = $id;
+        $this->dispatch('deleteshow');
+    }
+    #[On('deleteconfirmated')]
+    public function deleteconfirmated(){
+        Country::query()->where('id', $this->delete_id)->delete();
+        $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد!');
+    }
 
 
 
-}
+
+    public function edit($country_id)
+    {
+        $country = Country::query()->where('id', $country_id)->first();
+
+        if ($country) {
+            $this->name = $country->name;
+            $this->countryId = $country->id;
+        }
+
+    }
+
+
+    public function delete($country_id)
+    {
+
+        Country::query()->where('id', $country_id)->delete();
+        $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد!');
+
+
+    }
 
 
     public function render()
     {
-        $countries = Country::all();
-        return view('livewire.admin.country.index',[
-            'countries'=>$countries
+        $countries = Country::query()->paginate(10);
+        return view('livewire.admin.country.index', [
+            'countries' => $countries
         ])->layout('layouts.admin.app');
     }
 }

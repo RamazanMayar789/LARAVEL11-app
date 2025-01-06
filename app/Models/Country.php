@@ -8,12 +8,16 @@ class Country extends Model
 {
 
 protected $guarded = [];
-    public function submit($FormData){
+    public function submit($FormData,$countryId){
 
 
-       $country= Country::query()->create([
-            'name'=>$FormData['name'],
-        ]);
-    
+       Country::query()
+->updateOrCreate(
+    [
+        'id'=>$countryId,
+    ],
+    [
+'name'=>$FormData['name'],
+]);
     }
 }

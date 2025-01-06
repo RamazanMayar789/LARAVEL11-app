@@ -6,7 +6,7 @@
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>مدیریت کشورها</h4>
+                                <h4>مدیریت زون ها </h4>
                             </div>
                         </div>
                     </div>
@@ -14,11 +14,35 @@
                         <form wire:submit="submit(Object.fromEntries(new FormData($event.target)))">
                             <div class="mb-4 row">
                                 <div class="col-sm-12">
-                                    <label class="form-label" for="name">نام کشور</label>
-                                    <input type="text" class="form-control" wire:model='name' id="name" name="name" placeholder="لطفا نام کشور خود را وارد کنید">
+                                    <label class="form-label" for="name">نام زون</label>
+                                    <input type="text" class="form-control" wire:model='name' id="name" name="name" placeholder="لطفا نام زون خود را وارد کنید">
                                 </div>
                             </div>
                             @error('name')
+                            <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @enderror
+                             <div class="mb-4 row">
+                                <div class="col-sm-12">
+
+                                    <label class="form-label" for="country">نام کشور</label>
+                                   <select id="country" placeholder="انتخاب کشور" class="form-control" name="country">
+                                    @foreach ($countries as $country)
+
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+
+                                   </select>
+                                </div>
+                            </div>
+                            @error('country')
                             <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert">
@@ -44,7 +68,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>لیست کشورها</h4>
+                        <h4>لیست زون ها </h4>
                     </div>
                 </div>
             </div>
@@ -54,28 +78,28 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">اسم کشور</th>
+                                <th scope="col">اسم زون</th>
                                 <th class="text-center" scope="col">وضعیت</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($countries as $country)
+                            @foreach ($states as $state)
                             <tr>
                                 <td>
-                              {{ $loop->iteration + ($countries->first() ? $countries->first()->id : 0) - 1 }}
+                              {{ $loop->iteration + ($states->first() ? $states->first()->id : 0) - 1 }}
 
 
                                 </td>
-                                <td>{{ $country->name }}</td>
+                                <td>{{ $state->name }}</td>
                                 <td class="text-center">
                                     <div class="action-btn">
-                                        <a href="javascript:void(0);" wire:click="edit({{ $country->id }})" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <a href="javascript:void(0);" wire:click="edit({{ $state->id }})" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
                                                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                                             </svg>
                                         </a>
 
-                                        <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" wire:click="deleteConfirmation({{ $country->id }})"data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" wire:click="deleteConfirmation({{ $state->id }})"data-toggle="tooltip" data-placement="top" title="Delete">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
                                                 <polyline points="3 6 5 6 21 6"></polyline>
                                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -90,7 +114,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                     {{$countries->links('layouts.admin.pagination')}}
+                     {{$states->links('layouts.admin.pagination')}}
                 </div>
 
             </div>

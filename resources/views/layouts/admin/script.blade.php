@@ -13,6 +13,7 @@
      <script src="/admin/src/assets/js/scrollspyNav.js"></script>
     <script src="/admin/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
     <script src="/admin/src/plugins/src/sweetalerts2/custom-sweetalert.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
     window.addEventListener('success', function(event) {
@@ -24,5 +25,27 @@
 
         timer: 1500
     })
+    })
+
+</script>
+
+<script>
+
+    window.addEventListener('deleteshow', function(event) {
+   Swal.fire({
+  title: "آیا شما مطمین هستید",
+  text: "شما قادر به بازگشت شان نیستید",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "بلی, حذف شود!",
+  cancelButtonText:'لغو'
+}).then((result) => {
+  if (result.isConfirmed) {
+   Livewire.dispatch('deleteconfirmated');
+  }
 })
+    })
+
 </script>
