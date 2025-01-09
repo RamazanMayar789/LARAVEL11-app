@@ -1,3 +1,8 @@
-<div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
+<div class="row">
+    {{-- form of states --}}
+@include('livewire.admin.category.form')
+
+{{-- table of state --}}
+@include('livewire.admin.category.table')
+
 </div>

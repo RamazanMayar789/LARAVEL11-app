@@ -5,7 +5,7 @@
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>مدیریت ولایت ها </h4>
+                                <h4>مدیریت دسته بندی ها </h4>
                             </div>
                         </div>
                     </div>
@@ -13,8 +13,8 @@
                         <form wire:submit="submit(Object.fromEntries(new FormData($event.target)))">
                             <div class="mb-4 row">
                                 <div class="col-sm-12">
-                                    <label class="form-label" for="name">نام ولایت</label>
-                                    <input type="text" class="form-control" wire:model.blur='name' id="name" name="name" placeholder="لطفا نام ولایت خود را وارد کنید">
+                                    <label class="form-label" for="name">نام دسته بندی</label>
+                                    <input type="text" class="form-control" wire:model.blur='name' id="name" name="name" placeholder="لطفا نام دسته بندی خود را وارد کنید">
                                 </div>
                             </div>
                             @error('name')
@@ -31,17 +31,18 @@
                              <div class="mb-4 row">
                                 <div class="col-sm-12">
 
-                                    <label class="form-label" for="country">نام زون</label>
-                                   <select id="country" placeholder="انتخاب زون" class="form-control" wire:model="stateId" name="stateId" wire:ignore>
-                                    @foreach ($states as $state)
+                                    <label class="form-label" for="country">دسته بندی والد</label>
+                                   <select id="categoryId" placeholder="انتخاب دسته بندی والد" class="form-control" wire:model="categoryId" name="categoryId" wire:ignore>
+                                    <option value="">دسته بندی والد</option>
+                                    @foreach ($categories as $category)
 
-                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
 
                                    </select>
                                 </div>
                             </div>
-                            @error('stateId')
+                            @error('categoryId')
                             <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert">

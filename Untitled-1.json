@@ -1,0 +1,6 @@
+{
+    "type": "setting",
+    "settings": {
+        "accessibility.verbosity": "silent"
+    }
+}
