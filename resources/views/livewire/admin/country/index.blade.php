@@ -15,7 +15,7 @@
                             <div class="mb-4 row">
                                 <div class="col-sm-12">
                                     <label class="form-label" for="name">نام کشور</label>
-                                    <input type="text" class="form-control" wire:model='name' id="name" name="name" placeholder="لطفا نام کشور خود را وارد کنید">
+                                    <input type="text" class="form-control" wire:model.defer="name" id="name" name="name" placeholder="لطفا نام کشور خود را وارد کنید">
                                 </div>
                             </div>
                             @error('name')

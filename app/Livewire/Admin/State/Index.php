@@ -36,9 +36,9 @@ public $countries=[];
         $validator->validate();
 
         $states->submit($FormData,$this->stateId);
-        $this->reset();
-        $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
 
+        $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
+        $this->reset('name','countryId');
     }
         public function deleteConfirmation($id){
 
@@ -68,7 +68,7 @@ public $countries=[];
     }
 
 
-   
+
     public function render()
     {
 

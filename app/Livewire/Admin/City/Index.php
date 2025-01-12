@@ -60,6 +60,7 @@ $this->states=State::all();
 
     public function edit($cityId)
     {
+
         $city = City::query()->where('id', $cityId)->first();
 
         if ($city) {

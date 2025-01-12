@@ -34,7 +34,7 @@ public $delete_id;
         $validator->validate();
 
         $country->submit($FormData,$this->countryId);
-        $this->reset();
+        $this->reset('name');
         $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
 
     }

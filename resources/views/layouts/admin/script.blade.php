@@ -26,6 +26,17 @@
         timer: 1500
     })
     })
+    window.addEventListener('warning', function(event) {
+    Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: event.detail,
+        showConfirmButton: false,
+
+        timer: 3000
+    })
+    })
+
 
 </script>
 
@@ -48,4 +59,13 @@
 })
     })
 
+
 </script>
+
+<script src="//unpkg.com/alpinejs" defer></script>
+
+
+
+
+
+
