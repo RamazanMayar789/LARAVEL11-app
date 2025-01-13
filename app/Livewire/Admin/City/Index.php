@@ -7,11 +7,13 @@ use App\Models\State;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Validator;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
 
-
+use WithPagination;
     public $name;
     public $cityId;
     public $stateId;

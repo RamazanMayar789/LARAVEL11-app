@@ -11,7 +11,7 @@ class CategoryFeature extends Model
 
 
     public function submit($FormData,$categoryId,$FeatureId){
-    CategoryFeature::query()->updateOrCreate(
+   $feature=CategoryFeature::query()->updateOrCreate(
         [
             'id' => $FeatureId
         ],
@@ -22,6 +22,7 @@ class CategoryFeature extends Model
 
 
     );
+  
 }
 
      public function values(){

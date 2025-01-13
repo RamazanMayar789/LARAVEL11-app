@@ -1,30 +1,29 @@
 <?php
 
 namespace App\Livewire\Admin\Category;
-
 use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\On;
-use Livewire\WithPagination;
 use App\Models\CategoryFeature;
 use Illuminate\Support\Facades\Validator;
 
 class Features extends Component
 {
-
-    use WithPagination;
-public $categoryTittle;
-public $name;
-public $categoryId;
-public $delete_id;
+    public $categoryName;
 public $FeatureId;
+public $name;
+public $delete_id;
+    public $categoryId;
+    public function mount(Category $category){
+        $this->categoryName = $category->name;
+        $this->categoryId=$category->id;
+    }
 
- public function edit($featureId)
+     public function edit($categoryId)
     {
 
 
-
-        $categoryfeature = CategoryFeature::query()->where('id', $featureId)->first();
+        $categoryfeature = CategoryFeature::query()->where('id', $categoryId)->first();
 
         if ($categoryfeature) {
             $this->name = $categoryfeature->name;
@@ -34,11 +33,23 @@ public $FeatureId;
         }
 
     }
-    public function mount(Category $category){
-        $this->categoryTittle=$category->name;
-        $this->categoryId=$category->id;
+    public function deleteConfirmation($id){
+
+        $this->delete_id = $id;
+        $this->dispatch('deleteshow');
     }
-      public function submit($FormData  ,CategoryFeature $categoryFeature)
+    #[On('deleteconfirmated')]
+    public function deleteconfirmated(){
+
+        $categoryfeature=CategoryFeature::query()->where('id', $this->delete_id)->first();
+       if($categoryfeature->values()->exists()){
+         $this->dispatch('warning', 'این دسته بندی دارای زیر شاخه نمی توان این دسته بندی را حذف کرد ');
+      return;
+        }
+        $categoryfeature->delete();
+        $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد!');
+    }
+     public function submit($FormData  ,CategoryFeature $categoryFeature)
     {
 
         $validator = Validator::make($FormData, [
@@ -54,7 +65,7 @@ public $FeatureId;
         $validator->validate();
 
         $categoryFeature->submit($FormData,$this->categoryId,$this->FeatureId);
-
+     $this->reset('name');
 
 
 
@@ -64,39 +75,14 @@ public $FeatureId;
 
         $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
 
-         $this->reset();
 
-
-    }
-
-    public function deleteConfirmation($id){
-
-        $this->delete_id = $id;
-        $this->dispatch('deleteshow');
-    }
-    #[On('deleteconfirmated')]
-    public function deleteconfirmated(){
-
-        $categoryfeature=CategoryFeature::query()->where('id', $this->delete_id)->first();
-       if($categoryfeature->values()->exists()){
-         $this->dispatch('warning', 'این ویژگی دارای دارای مقادیر است و  نمی توان این دسته بندی را حذف کرد ');
-      return;
-        }
-        $categoryfeature->delete();
-        $this->dispatch('success','عملیات حذف با موفقیت انجام شد!');
 
     }
     public function render()
     {
-        $Features=CategoryFeature::query()->
-        
-        paginate(10);
-
+       $categoryFeature= CategoryFeature::query()->where('category_id',$this->categoryId)->paginate(10);
         return view('livewire.admin.category.features.index',[
-            'Features'=>$Features
-        ])
-        ->layout('layouts.admin.app');
-
-
+            'categoryFeature'=>$categoryFeature
+        ])->layout('layouts.admin.app');
     }
 }

@@ -4,15 +4,8 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                     <h4>
-
-                        <span>
-
-                          ویژگی دسته بندی
-                         {{ $categoryName }}
-                        </span>
-
-
-
+                        مقادیر ویژگی
+                    {{ $featureName }}
                     </h4>
                 </div>
             </div>
@@ -21,11 +14,11 @@
             <form  wire:submit="submit(Object.fromEntries(new FormData($event.target)))">
                 <div class="mb-4 row">
                     <div class="col-sm-12">
-                        <label class="form-label" for="name">نام ویژگی </label>
-                        <input type="text" class="form-control" wire:model="name" id="name" name="name" placeholder="لطفا نام دسته بندی خود را وارد کنید">
+                        <label class="form-label" for="value">نام  مقادیر</label>
+                        <input type="text" class="form-control" wire:model="value" id="value" name="value" placeholder="لطفا نام دسته بندی خود را وارد کنید">
                     </div>
                 </div>
-                @error('name')
+                @error('value')
                 <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert">
