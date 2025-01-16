@@ -33,3 +33,12 @@
 
      <link href="/admin/src/assets/css/light/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
     <link href="/admin/src/assets/css/dark/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/admin/src/assets/css/light/forms/switches.css">
+    <link rel="stylesheet" type="text/css" href="/admin/src/plugins/css/light/editors/quill/quill.snow.css">
+    <link rel="stylesheet" type="text/css" href="/admin/src/plugins/css/light/tagify/custom-tagify.css">
+    <link href="/admin/src/plugins/css/light/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="/admin/src/assets/css/dark/forms/switches.css">
+    <link rel="stylesheet" type="text/css" href="/admin/src/plugins/css/dark/editors/quill/quill.snow.css">
+    <link rel="stylesheet" type="text/css" href="/admin/src/plugins/css/dark/tagify/custom-tagify.css">
+    <link href="/admin/src/plugins/css/dark/filepond/custom-filepond.css" rel="stylesheet" type="text/css" />

@@ -62,6 +62,16 @@ public $delete_id;
 
         ]);
 
+
+
+
+
+
+
+
+
+
+
         $validator->validate();
 
         $categoryFeature->submit($FormData,$this->categoryId,$this->FeatureId);
