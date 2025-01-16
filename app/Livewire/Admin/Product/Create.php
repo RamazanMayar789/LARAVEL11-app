@@ -16,9 +16,10 @@ class Create extends Component
     public function mount(){
 $this->categories = Category::all();
 
-$this->sellers = Seller::all();
+$this->sellers = Seller::query()->select('id','shop_name')->get();
 
     }
+    
     public function updatedName(){
 
             $this->slug=Str::slug($this->name,'-',null);
