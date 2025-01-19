@@ -76,7 +76,7 @@ class Index extends Component
         $validator->validate();
 
         $category->submit($FormData,$this->categoryId);
-     $this->reset('name');
+     $this->reset();
 
 
 

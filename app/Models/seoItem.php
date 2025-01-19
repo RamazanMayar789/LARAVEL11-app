@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class seoItem extends Model
 {
-    //
+    protected $guarded=[];
 }

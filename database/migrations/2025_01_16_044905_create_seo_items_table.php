@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('seo_items', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->string('meta_titles');
             $table->text('meta_description');
             $table->string('type');
