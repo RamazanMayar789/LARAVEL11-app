@@ -83,6 +83,6 @@ $this->sellers = Seller::query()->select('id','shop_name')->get();
 
     public function render()
     {
-        return view('livewire.admin.product.create')->layout('layouts.admin.app');
+        return view('livewire.admin.product.create.index')->layout('layouts.admin.app');
     }
 }

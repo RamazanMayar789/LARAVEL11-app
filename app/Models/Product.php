@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManager;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -11,10 +12,14 @@ class Product extends Model
     protected $guarded=[];
 
     public function submit($FormData,$productId,$photos){
+DB::transaction(function() use ($FormData,$productId,$photos){
 
 $product=$this->SubmitToProduct($FormData,$productId);
 $this->SubmitToSeo($FormData,$product->id);
 $this->saveImage($product->id,$photos);
+$this->submitToproductImage($photos,$product->id);
+});
+
 
 
 
@@ -67,17 +72,10 @@ $this->saveImage($product->id,$photos);
             $this->resizeImage($photo,'100','100','small',$productId);
             $this->resizeImage($photo,'300','300','medium',$productId);
             $this->resizeImage($photo,'800','800','large',$productId);
-
-            $photo->store('photos');
-//$path='products/'.$productId.'/'.$FormData['slug'].'-'. time();
-ProductImage::query()->create([
-
-
-        'path'=>'test',
-        'product_id'=>$productId,
-]);
-}
+            $photo->delete();
+        }
     }
+
     public function resizeImage($photo,$width,$height,$folder,$productId){
 
         $path=public_path(path: 'products/'.$productId.'/'.$folder);
@@ -86,6 +84,21 @@ ProductImage::query()->create([
             mkdir($path,0777,true);
         }
         $manager = new ImageManager(new Driver());
-        $manager->read($photo->getRealPath())->scale($width,$height)->toWebp()->save($path.'/'.$photo->hashName());
+        $manager->read($photo->getRealPath())->scale($width,$height)->toWebp()->
+        save($path.'/'.pathinfo($photo->hashName(),PATHINFO_FILENAME).'.webp');
     }
+    public function submitToproductImage($photos,$productId){
+        foreach($photos as $photo){
+            $path=pathinfo($photo->hashName(),PATHINFO_FILENAME).'.webp';
+        //$path='products/'.$productId.'/'.$FormData['slug'].'-'. time();
+ProductImage::query()->create([
+
+
+        'path'=>$path,
+        'product_id'=>$productId,
+]);
+}
+
+    }
+
 }
