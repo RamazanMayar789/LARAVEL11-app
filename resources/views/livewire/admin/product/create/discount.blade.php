@@ -21,7 +21,7 @@
             @enderror
             <div class="mb-4 col-sm-12">
                 <label for="discount_duration">تاریخ انقضاء</label>
-                <input type="date" class="form-control" id="discount_duration" value="" wire:model="discount_duration">
+                <input type="date" class="form-control" id="discount_duration" value="" wire:model="discount_duration" name="discount_duration">
             </div>
             @error('discount_duration')
                 <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show"

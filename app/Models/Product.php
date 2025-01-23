@@ -11,13 +11,23 @@ class Product extends Model
 {
     protected $guarded=[];
 
-    public function submit($FormData,$productId,$photos){
-DB::transaction(function() use ($FormData,$productId,$photos){
+    public function category(){
+
+        return $this->belongsTo(Category::class);
+    }
+
+    public function coverImage(){
+        return $this->belongsTo(ProductImage::class,'id','product_id')
+        ->where('is_cover','=','true');
+    }
+
+    public function submit($FormData,$productId,$photos,$coverIndex){
+DB::transaction(function() use ($FormData,$productId,$photos,$coverIndex){
 
 $product=$this->SubmitToProduct($FormData,$productId);
 $this->SubmitToSeo($FormData,$product->id);
 $this->saveImage($product->id,$photos);
-$this->submitToproductImage($photos,$product->id);
+$this->submitToproductImage($photos,$product->id,$coverIndex);
 });
 
 
@@ -87,8 +97,8 @@ $this->submitToproductImage($photos,$product->id);
         $manager->read($photo->getRealPath())->scale($width,$height)->toWebp()->
         save($path.'/'.pathinfo($photo->hashName(),PATHINFO_FILENAME).'.webp');
     }
-    public function submitToproductImage($photos,$productId){
-        foreach($photos as $photo){
+    public function submitToproductImage($photos,$productId,$coverIndex){
+        foreach($photos as $index => $photo){
             $path=pathinfo($photo->hashName(),PATHINFO_FILENAME).'.webp';
         //$path='products/'.$productId.'/'.$FormData['slug'].'-'. time();
 ProductImage::query()->create([
@@ -96,6 +106,7 @@ ProductImage::query()->create([
 
         'path'=>$path,
         'product_id'=>$productId,
+        'is_cover'=>$index==$coverIndex
 ]);
 }
 

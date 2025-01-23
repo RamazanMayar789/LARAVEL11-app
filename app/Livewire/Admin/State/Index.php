@@ -16,12 +16,13 @@ class Index extends Component
     public $stateId;
     public $countryId;
     use WithPagination;
-public $countries=[];
-    public function mount() {
-       $this->countries= Country::all();
+    public $countries = [];
+    public function mount()
+    {
+        $this->countries = Country::all();
 
     }
-    public function submit($FormData  ,State $states)
+    public function submit($FormData, State $states)
     {
 
         $validator = Validator::make($FormData, [
@@ -35,18 +36,20 @@ public $countries=[];
 
         $validator->validate();
 
-        $states->submit($FormData,$this->stateId);
+        $states->submit($FormData, $this->stateId);
 
         $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
-        $this->reset('name','countryId');
+        $this->reset('name', 'countryId');
     }
-        public function deleteConfirmation($id){
+    public function deleteConfirmation($id)
+    {
 
         $this->delete_id = $id;
         $this->dispatch('deleteshow');
     }
     #[On('deleteconfirmated')]
-    public function deleteconfirmated(){
+    public function deleteconfirmated()
+    {
         State::query()->where('id', $this->delete_id)->delete();
         $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد!');
     }
@@ -62,7 +65,7 @@ public $countries=[];
         if ($state) {
             $this->name = $state->name;
             $this->stateId = $state->id;
-            $this->countryId=$state->country_id;
+            $this->countryId = $state->country_id;
         }
 
     }
@@ -72,10 +75,12 @@ public $countries=[];
     public function render()
     {
 
-        $states=State::query()->paginate(10);
-        return view('livewire.admin.state.index',
-        [
-            'states'=>$states
-            ])->layout('layouts.admin.app');
+        $states = State::query()->paginate(10);
+        return view(
+            'livewire.admin.state.index',
+            [
+                'states' => $states
+            ]
+        )->layout('layouts.admin.app');
     }
 }

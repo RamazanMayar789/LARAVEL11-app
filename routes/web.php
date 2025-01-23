@@ -9,6 +9,7 @@ use App\Livewire\Admin\Dashboard\Index as DashboardIndex;
 use App\Livewire\Admin\Category\Index as CategoryIndex;
 use App\Livewire\Admin\State\Index as StateIndex;
 use App\Livewire\Admin\City\Index as CityIndex;
+use App\Livewire\Admin\Product\Index as ProductIndex;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,5 +21,6 @@ Route::get('/admin/city',CityIndex::class)->name('admin.city.index');
 Route::get('/admin/category/{category}/features',FeatureIndex::class)->name('admin.category.feature');
 Route::get('/admin/category//features/{categoryFeature}/values',action: FeatureValueIndex::class)
 ->name('admin.category.feature.values');
-Route::get('/admin/product/create',ProductCreate::class)->name('admin.product.index');
+Route::get('/admin/product/create',ProductCreate::class)->name('admin.product.create');
+Route::get('/admin/product/index',ProductIndex::class)->name('admin.product.index');
 

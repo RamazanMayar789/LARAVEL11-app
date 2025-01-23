@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->boolean('featured')->default(false);
             $table->timestamp('discount_duration')->nullable();
-            $table->foreignId('seller_id')->constrained();
+            $table->foreignId('seller_id')->nullable()->constrained();
             $table->foreignId('category_id')->constrained();
             $table->timestamps();
         });

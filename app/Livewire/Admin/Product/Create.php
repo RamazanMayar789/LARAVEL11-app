@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Admin\Product;
 
+use session;
 use App\Models\Seller;
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
-use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Validator;
 
 
 class Create extends Component
@@ -17,6 +18,8 @@ class Create extends Component
     use WithFileUploads;
     public $productId, $name,$meta_title,$meta_description,$price,$discount,$stock,$featured,$slug,$discount_duration,$sellerId;
 public $categories=[];
+
+public $coverIndex=0;
     public $sellers=[];
     #[Validate(['photos.*'=>'photo.|max:1024'])]
        public $photos=[];
@@ -43,7 +46,18 @@ $this->sellers = Seller::query()->select('id','shop_name')->get();
             $FormData['featured']=false;
          }
 
+         if($FormData['discount_duration']==""){
+            $FormData['discount_duration'];
+
+         }
+
+        if (!isset($FormData['sellerId'])) {
+            $FormData['sellerId']=null;
+
+        }
+
          $FormData['photos']=$this->photos;
+         $FormData['coverIndex']=$this->coverIndex;
 
         //  foreach($this->photos as $photo){
         //     $photo->store('photos');
@@ -59,9 +73,11 @@ $this->sellers = Seller::query()->select('id','shop_name')->get();
             'discount' => 'nullable|integer',
              'stock' => 'required|integer',
             'featured' => 'nullable|boolean',
-            'sellerId' => 'required|exists:sellers,id',
-            'categoryId' => 'required|exists:categories,id'
+            'sellerId' => 'nullable|exists:sellers,id',
+            'categoryId' => 'required|exists:categories,id',
+            'coverIndex' => 'required'
              ], [
+            'coverIndex.required'=>'لطفا یک تصویر شاخص انتخاب کنید !',
             '*.required' => 'فیلد ضروری است.',
             '*.integer' => 'این فیلد باید از نوع عددی باشد',
             '*.string' => 'فرمت اشتباه است !',
@@ -74,11 +90,20 @@ $this->sellers = Seller::query()->select('id','shop_name')->get();
         $validator->validate();
 
 
-        $product->submit($FormData,$this->productId,$this->photos);
+        $product->submit($FormData,$this->productId,$this->photos,$this->coverIndex);
+        $this->redirect(route('admin.product.index'));
+        session()->flash('success', 'محصول با موفقیت افزود شد!');
 
-        $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
-        $this->reset();
-        $this->mount();
+    }
+
+    public function setCoverImage($index){
+        $this->coverIndex=$index;
+    }
+    public function removePhoto($index){
+        if($index==$this->coverIndex){
+            $this->coverIndex=null;
+        }
+        array_splice($this->photos,$index,1);
     }
 
     public function render()
