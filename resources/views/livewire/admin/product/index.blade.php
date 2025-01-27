@@ -18,42 +18,51 @@
 
     <div class="statbox widget box box-shadow">
         <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>لیست زون ها </h4>
-                </div>
+<div class="d-flex justify-content-between align-items-center">
+
+                    <h4>لیست محصولات</h4>
+    <a href="{{ route('admin.product.create') }}" type="button" class="mb-2 btn btn-outline-info me-4">افزودن محصول جدید</a>
             </div>
         </div>
         <div class="widget-content widget-content-area">
-            <div class="table-responsive">
+            <div class="table table-sm table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col" class="text-center">تصویر محصول </th>
-                            <th scope="col">نام محصول</th>
-                            <th scope="col">دسته بندی</th>
+                            <th scope="col" width="50px">#</th>
+                            <th scope="col" width="150px">کد محصول</th>
+                            <th scope="col" class="text-center"  width="130px">تصویر محصول </th>
+                            <th scope="col" class="text-center" width="140px" class="text-wrap">نام محصول</th>
+                            <th scope="col" class="text-center">دسته بندی</th>
                             <th scope="col">قیمت</th>
                             <th class="text-center" scope="col">وضعیت</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
+
                             <tr>
-                                <td>
+                                <td width="50px">
                                     {{ $loop->iteration + ($products->first() ? $products->first()->id : 0) - 1 }}
 
 
                                 </td>
+                                <td width="150px" class="text-center">
+                                    {{$product->p_code }}
+
+
+                                </td  width="130px">
                                 <td class="text-center">
-                                    <img src="/products/{{ $product->id }}/small/{{ $product->coverImage->path }}" alt="">
+
+                                    <img src="/products/{{$product->id}}/small/{{@$product->coverImage->path}}" alt="" width="100">
+
                                 </td>
-                                <td>{{ $product->name  }}</td>
-                                <td>{{ $product->category->name }}</td>
-                                <td>{{ number_format($product->price) }}</td>
+                                <td  width="140px" class="text-center text-wrap">{{ $product->name  }}</td>
+                                <td class="text-center">{{$product->category->name }}</td>
+                                <td class="text-center">{{ number_format($product->price) }}</td>
                                 <td class="text-center">
                                     <div class="action-btn">
-                                        <a href="javascript:void(0);" wire:click="edit({{ $product->id }})"
+                                        <a href="{{ route('admin.product.create')}}? p_id={{ $product->id}}"
                                             class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
                                             data-placement="top" title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

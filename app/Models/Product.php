@@ -3,40 +3,57 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
     protected $guarded=[];
+
+public function coverImage(){
+    return $this->belongsTo(ProductImage::class,'id','product_id')->where('is_cover','=',true);
+}
 
     public function category(){
 
         return $this->belongsTo(Category::class);
     }
 
-    public function coverImage(){
-        return $this->belongsTo(ProductImage::class,'id','product_id')
-        ->where('is_cover','=','true');
-    }
+
+
 
     public function submit($FormData,$productId,$photos,$coverIndex){
+
+
 DB::transaction(function() use ($FormData,$productId,$photos,$coverIndex){
 
-$product=$this->SubmitToProduct($FormData,$productId);
-$this->SubmitToSeo($FormData,$product->id);
-$this->saveImage($product->id,$photos);
-$this->submitToproductImage($photos,$product->id,$coverIndex);
+            $product = $this->SubmitToProduct($FormData, $productId);
+            $this->SubmitToSeo($FormData, $product->id);
+            $this->submitToProductImage($photos, $product->id, $coverIndex);
+$this->saveImage($photos, $product->id);
+
 });
 
 
 
 
 
-
     }
-    public function SubmitToProduct($FormData,$productId){
+    public function generateCode()
+    {
+        do {
+            $randomcode = uniqid();
+            $checkcode = Product::query()->where('p_code', $randomcode)->first();
+        } while ($checkcode);
+
+        return $randomcode;
+    }    public function SubmitToProduct($FormData,$productId){
+
+        $generatedCode = config('app.name') . '-' . $this->generateCode();
 
  return Product::query()->updateOrCreate(
 
@@ -52,10 +69,13 @@ $this->submitToproductImage($photos,$product->id,$coverIndex);
                 'featured'=>$FormData['featured'],
                 'seller_id'=>$FormData['sellerId'],
                 'category_id'=>$FormData['categoryId'],
+                'p_code'=>$generatedCode
             ]
 
         );
     }
+
+
     public function SubmitToSeo($FormData,$productId){
 
  seoItem::query()->updateOrCreate(
@@ -73,8 +93,29 @@ $this->submitToproductImage($photos,$product->id,$coverIndex);
             ]
         );
     }
+    public function submitToproductImage($photos, $productId, $coverIndex)
+    {
 
-    public function saveImage($productId,$photos){
+
+        ProductImage::query()->where('product_id', $productId)->update(['is_cover' => false]);
+
+        foreach ($photos as $index => $photo) {
+
+            $path = pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.webp';
+
+            ProductImage::query()->create(
+                [
+                    'path' => $path,
+                    'product_id' => $productId,
+                    'is_cover' => $index == $coverIndex,
+                ]
+            );
+        }
+
+    }
+
+
+    public function saveImage($photos, $productId){
 
 
         foreach($photos as $photo){
@@ -97,19 +138,30 @@ $this->submitToproductImage($photos,$product->id,$coverIndex);
         $manager->read($photo->getRealPath())->scale($width,$height)->toWebp()->
         save($path.'/'.pathinfo($photo->hashName(),PATHINFO_FILENAME).'.webp');
     }
-    public function submitToproductImage($photos,$productId,$coverIndex){
-        foreach($photos as $index => $photo){
-            $path=pathinfo($photo->hashName(),PATHINFO_FILENAME).'.webp';
-        //$path='products/'.$productId.'/'.$FormData['slug'].'-'. time();
-ProductImage::query()->create([
+
+    public function removeProduct(Product $product){
+        DB::transaction(function() use ($product){
+        $product->delete();
 
 
-        'path'=>$path,
-        'product_id'=>$productId,
-        'is_cover'=>$index==$coverIndex
-]);
+        seoItem::query()->where('ref_id', $product->id)->delete();
+        ProductImage::query()->where('product_id', $product->id)->delete();
+
+        File::deleteDirectory('products');
+
+
+    });
+}
+public function seoItems(){
+
+return $this->belongsTo(seoItem::class,'id','ref_id');
+
 }
 
-    }
+public function images(){
+
+    return $this->hasMany(ProductImage::class);
+}
+
 
 }

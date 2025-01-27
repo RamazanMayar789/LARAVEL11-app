@@ -4,6 +4,7 @@
         <div class="col-sm-12">
             <label for="name">نام محصول</label>
             <input type="text" class="form-control" name="name" wire:model.live="name" id="name"
+            value="{{@$product->name }}"
                 placeholder="لطفا نام محصول خود وارد کنید !">
         </div>
     </div>
@@ -24,7 +25,8 @@
     <div class="mb-4 row">
         <div class="col-sm-12">
             <label for="slug">اسلاک</label>
-            <input type="text" class="form-control" readonly id="slug" name="slug" placeholder="" wire:model="slug">
+            <input type="text" class="form-control" readonly id="slug" name="slug" placeholder=""
+             wire:model="slug"  value="{{@$product->seoItems->slug }}">
         </div>
     </div>
     @error('slug')
@@ -46,7 +48,7 @@
         <div class="col-sm-12">
             <label for="meta_title">عنوان میتا</label>
             <input type="text" class="form-control" id="meta_title" name="meta_title" placeholder=""
-                wire:model="meta_title">
+                wire:model="meta_title"  value="{{@ $product->seoItems->meta_titles }}">
         </div>
     </div>
     @error('meta_title')
@@ -66,7 +68,7 @@
         <div class="col-sm-12">
             <label for="meta_description">توضحیات میتا</label>
             <input type="text" class="form-control" id="meta_description" name="meta_description" placeholder=""
-                wire:model="meta_description">
+                wire:model="meta_description"  value="{{@ $product->seoItems->meta_description }}">
         </div>
     </div>
 

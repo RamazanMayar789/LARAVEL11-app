@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('payment_method_id')->constrained();
             $table->foreignId('delivery_method_id')->constrained();
             $table->enum('status',['pending','processing','completed','cancelled'])->default('pending');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
