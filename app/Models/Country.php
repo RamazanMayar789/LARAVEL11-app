@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Country extends Model
 {
-    use SoftDeletes;
+
 
 protected $guarded = [];
     public function submit($FormData,$countryId){

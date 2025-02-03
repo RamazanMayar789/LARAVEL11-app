@@ -4,12 +4,10 @@
             <ul class="flex-row text-center navbar-item theme-brand">
                 <li class="nav-item theme-logo">
                     <a href="index.html">
-                        <img src="../src/assets/img/logo2.svg" class="navbar-logo" alt="logo">
+                        <img src="/admin/src/assets/img/boy.png"  alt="logo">
                     </a>
                 </li>
-                <li class="nav-item theme-text">
-                    <a href="index.html" class="nav-link"> CORK </a>
-                </li>
+               
             </ul>
 
             <div class="search-animated toggle-search">

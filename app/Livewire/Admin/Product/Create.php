@@ -2,24 +2,27 @@
 
 namespace App\Livewire\Admin\Product;
 
+
 use session;
 use App\Models\Seller;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\ProductImage;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\Models\ProductImage;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\admin\ProductRepositoriesInterface;
+use app\Repositories\admin\AdminProductRepositoriesInterface;
 
 
 class Create extends Component
 {
     use WithFileUploads;
-    public $productId, $product, $name, $featured, $slug, $sellerId;
+    public $productId, $product, $name, $slug, $sellerId;
     public $categories = [];
     public $productImages = [];
     public $images=[];
@@ -28,6 +31,11 @@ class Create extends Component
     public $sellers = [];
     #[Validate(['photos.*' => 'photo.|max:1024'])]
     public $photos = [];
+    private $repository;
+    public function boot(ProductRepositoriesInterface $repository){
+
+        $this->repository = $repository;
+    }
     public function mount()
     {
 
@@ -113,7 +121,7 @@ class Create extends Component
         $validator->validate();
 
 
-        $product->submit($FormData, $this->productId, $this->photos, $this->coverIndex);
+        $this->repository->submit($FormData, $this->productId, $this->photos, $this->coverIndex);
         $this->redirect(route('admin.product.index'));
         session()->flash('success', 'محصول با موفقیت افزود شد!');
 
@@ -139,10 +147,7 @@ class Create extends Component
     public function removeOldPhoto(productImage $productImage, $productId)
     {
 
-        $productImage->delete();
-        File::delete(public_path('products/' . $productId . '/small/' . $productImage->path));
-        File::delete(public_path('products/' . $productId . '/medium/' . $productImage->path));
-        File::delete(public_path('products/' . $productId . '/large/' . $productImage->path));
+       $this->repository->removeOldPhoto($productImage, $productId);
 
     }
 
@@ -152,13 +157,7 @@ class Create extends Component
 
 
 
-        ProductImage::query()->where('product_id', $productId)->update(['is_cover' => false]);
-        ProductImage::query()->where([
-            'product_id' => $productId,
-            'id' => $photoId,
-        ])->update(['is_cover' => true]);
-
-
+      $this->repository->setCoverOldImage($photoId,$productId);
         $this->dispatch('success','تصویر کاور با موفقیت تبدیل شد');
     }
 

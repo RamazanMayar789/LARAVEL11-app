@@ -2,23 +2,36 @@
 
 namespace App\Livewire\Admin\Product;
 
+use App\Models\Admin;
 use App\Models\Product;
-use App\Models\ProductImage;
 use App\Models\seoItem;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\Attributes\On;
+
+
+use App\Models\ProductImage;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithoutUrlPagination;
+use Illuminate\Support\Facades\File;
+use App\Repositories\admin\ProductRepositoriesInterface;
+use app\Repositories\Admin\AdminProductRepositoriesInterface;
 
 class Index extends Component
 {
     use WithPagination;
     public $delete_id;
+    private $repository;
+    public function boot(ProductRepositoriesInterface $repository)
+    {
+
+        $this->repository = $repository;
+    }
+
     public function deleteConfirmation(Product $product)
     {
-        $this->delete_id = $product;
+        $this->delete_id = $product->id;
+
 
         $this->dispatch('deleteshow');
     }
@@ -26,10 +39,11 @@ class Index extends Component
     public function deleteconfirmated()
     {
 
-        $product = $this->delete_id;
+        $productId = $this->delete_id;
 
-        $product->removeProduct($product);
 
+
+    $this->repository->removeProduct($productId);
         $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد!');
 
 

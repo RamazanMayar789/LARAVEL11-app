@@ -18,13 +18,14 @@ public function submit($FormData,$featureId,$valueId){
         ],
         [
             'value'=>$FormData['value'],
-            'category_feature_id' => $featureId,
+            'category_feature_id' => $featureId
         ]
 
 
     );
 
 }
+
 
 
 }

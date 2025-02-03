@@ -6,8 +6,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 <svg data-bs-dismiss="alert"> ...</svg>
             </button>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-check-square">
                 <polyline points="9 11 12 14 22 4"></polyline>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
             </svg>
@@ -18,10 +19,11 @@
 
     <div class="statbox widget box box-shadow">
         <div class="widget-header">
-<div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
 
-                    <h4>لیست محصولات</h4>
-    <a href="{{ route('admin.product.create') }}" type="button" class="mb-2 btn btn-outline-info me-4">افزودن محصول جدید</a>
+                <h4>لیست محصولات</h4>
+                <a href="{{ route('admin.product.create') }}" type="button"
+                    class="mb-2 btn btn-outline-info me-4">افزودن محصول جدید</a>
             </div>
         </div>
         <div class="widget-content widget-content-area">
@@ -31,10 +33,12 @@
                         <tr>
                             <th scope="col" width="50px">#</th>
                             <th scope="col" width="150px">کد محصول</th>
-                            <th scope="col" class="text-center"  width="130px">تصویر محصول </th>
+                            <th scope="col" class="text-center" width="130px">تصویر محصول </th>
                             <th scope="col" class="text-center" width="140px" class="text-wrap">نام محصول</th>
                             <th scope="col" class="text-center">دسته بندی</th>
-                            <th scope="col">قیمت</th>
+                            <th scope="col" class="text-center">قیمت</th>
+                            <th scope="col" class="text-center">ویژگی ها</th>
+                            <th scope="col" class="text-center">محتوا محصول</th>
                             <th class="text-center" scope="col">وضعیت</th>
                         </tr>
                     </thead>
@@ -51,15 +55,27 @@
                                     {{$product->p_code }}
 
 
-                                </td  width="130px">
+                                </td width="130px">
                                 <td class="text-center">
 
-                                    <img src="/products/{{$product->id}}/small/{{@$product->coverImage->path}}" alt="" width="100">
+                                    <img src="/products/{{$product->id}}/small/{{@$product->coverImage->path}}" alt=""
+                                        width="100">
 
                                 </td>
-                                <td  width="140px" class="text-center text-wrap">{{ $product->name  }}</td>
+                                <td width="140px" class="media-body align-self-center">
+                                    <p>{{ $product->name  }}</p>
+
+                                </td>
                                 <td class="text-center">{{$product->category->name }}</td>
                                 <td class="text-center">{{ number_format($product->price) }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.product.features', $product->id) }}"
+                                        class="text-center btn btn-outline-secondary">ویژگی</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.product.content', $product->id) }}"
+                                        class="text-center btn btn-outline-warning">محتوا</a>
+                                </td>
                                 <td class="text-center">
                                     <div class="action-btn">
                                         <a href="{{ route('admin.product.create')}}? p_id={{ $product->id}}"

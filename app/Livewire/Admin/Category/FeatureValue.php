@@ -42,7 +42,7 @@ class FeatureValue extends Component
 
         $validator->validate();
 
-        $featureValue->submit($FormData,$this->featureId,$this->valueId,);
+        $featureValue->submit($FormData,$this->featureId, $this->valueId);
      $this->reset('value');
 
 
@@ -65,16 +65,16 @@ class FeatureValue extends Component
     public function deleteconfirmated(){
 
         $categoryfeaturevalue=\App\Models\featureValue::query()->where('id', $this->delete_id)->first();
-      
+
         $categoryfeaturevalue->delete();
         $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد!');
     }
 
-    public function edit($valueId)
+    public function edit($value_Id)
     {
 
 
-        $categoryfeaturevalue = \App\Models\featureValue::query()->where('id', $valueId)->first();
+        $categoryfeaturevalue = \App\Models\featureValue::query()->where('id', $value_Id)->first();
 
         if ($categoryfeaturevalue) {
             $this->value = $categoryfeaturevalue->value;
