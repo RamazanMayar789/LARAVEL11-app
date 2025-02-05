@@ -4,7 +4,7 @@ namespace App\Livewire\Admin\Category;
 
 use Livewire\Component;
 use App\Models\Category;
-
+use App\Repositories\admin\CategoryRepositoriesInterface;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +20,12 @@ class Index extends Component
     public $parentId;
     public $categoryId;
 
+private $repository;
 
+public function boot(CategoryRepositoriesInterface $repository){
+
+    $this->repository = $repository;
+}
 
  public function deleteConfirmation($id){
 
@@ -75,7 +80,7 @@ class Index extends Component
 
         $validator->validate();
 
-        $category->submit($FormData,$this->categoryId);
+        $this->repository->submit($FormData,$this->categoryId);
      $this->reset();
 
 

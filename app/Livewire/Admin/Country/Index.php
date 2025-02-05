@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Country;
 
 use App\Models\Country;
+use App\Repositories\admin\CountryRepositoryInterface;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,13 @@ public $delete_id;
 
 
 
+private $repository;
 
+
+public function boot(CountryRepositoryInterface $repository){
+
+    $this->repository = $repository;
+}
 
     public function submit($FormData  ,Country $country)
     {
@@ -33,7 +40,7 @@ public $delete_id;
 
         $validator->validate();
 
-        $country->submit($FormData,$this->countryId);
+        $this->repository->submit($FormData,$this->countryId);
         $this->reset('name');
         $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
 

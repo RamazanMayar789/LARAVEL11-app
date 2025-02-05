@@ -10,16 +10,5 @@ class Country extends Model
 
 
 protected $guarded = [];
-    public function submit($FormData,$countryId){
-
-
-       Country::query()
-->updateOrCreate(
-    [
-        'id'=>$countryId,
-    ],
-    [
-'name'=>$FormData['name'],
-]);
-    }
+   
 }

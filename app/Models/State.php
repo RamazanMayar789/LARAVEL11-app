@@ -13,17 +13,5 @@ class State extends Model
 
         return $this->belongsTo(Country::class);
     }
-    public function submit($FormData,$stateId){
-
-          State::query()
-->updateOrCreate(
-    [
-        'id'=>$stateId,
-    ],
-    [
-'name'=>$FormData['name'],
-'country_id'=>$FormData['countryId'],
-]);
-
-    }
+  
 }

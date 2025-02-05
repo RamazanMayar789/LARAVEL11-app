@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Category;
 
+use App\Repositories\admin\CategoryRepositoriesInterface;
 use Livewire\Component;
 
 use Livewire\Attributes\On;
@@ -18,6 +19,14 @@ class FeatureValue extends Component
     public $value;
     public $delete_id;
     public $categoryId;
+
+    private $repository;
+
+    public function boot(CategoryRepositoriesInterface $repository){
+
+
+        $this->repository = $repository;
+    }
 
     public function mount(CategoryFeature $categoryFeature){
 
@@ -42,7 +51,7 @@ class FeatureValue extends Component
 
         $validator->validate();
 
-        $featureValue->submit($FormData,$this->featureId, $this->valueId);
+        $this->repository->submitToFeatureValues($FormData,$this->featureId, $this->valueId);
      $this->reset('value');
 
 

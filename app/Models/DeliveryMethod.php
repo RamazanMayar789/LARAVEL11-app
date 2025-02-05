@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeliveryMethod extends Model
 {
-    use SoftDeletes;
+ protected $fillable =['name','price'];
 }

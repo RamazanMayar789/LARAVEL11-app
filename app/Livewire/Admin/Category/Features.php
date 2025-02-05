@@ -5,6 +5,7 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\On;
 use App\Models\CategoryFeature;
+use App\Repositories\admin\CategoryRepositoriesInterface;
 use Illuminate\Support\Facades\Validator;
 
 class Features extends Component
@@ -14,6 +15,13 @@ public $FeatureId;
 public $name;
 public $delete_id;
     public $categoryId;
+
+    private $repository;
+
+    public function boot(CategoryRepositoriesInterface $repository) {
+
+        $this->repository = $repository;
+    }
     public function mount(Category $category){
         $this->categoryName = $category->name;
         $this->categoryId=$category->id;
@@ -74,7 +82,7 @@ public $delete_id;
 
         $validator->validate();
 
-        $categoryFeature->submit($FormData,$this->categoryId,$this->FeatureId);
+        $this->repository->submitToCategoryFeature($FormData,$this->categoryId,$this->FeatureId);
      $this->reset('name');
 
 

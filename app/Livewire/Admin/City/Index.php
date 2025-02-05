@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\City;
 
 use App\Models\City;
 use App\Models\State;
+use App\Repositories\admin\CityRepositoryInterface;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +22,12 @@ public $delete_id;
 public $states=[];
 
 
+private $repository;
 
+public function boot(CityRepositoryInterface $repository){
+
+    $this->repository = $repository;
+}
 public function mount(){
 $this->states=State::all();
 
@@ -41,7 +47,7 @@ $this->states=State::all();
 
         $validator->validate();
 
-        $cities->submit($FormData,$this->cityId);
+        $this->repository->submit($FormData,$this->cityId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد!');
 
