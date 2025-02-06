@@ -5,7 +5,7 @@
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>مدیریت روش ها  ارسال</h4>
+                                <h4>مدیریت روش  پرداخت ها  </h4>
                             </div>
                         </div>
                     </div>
@@ -14,9 +14,9 @@
 
                             <div class="mb-4 row">
                                 <div class="col-sm-12">
-                                    <label class="form-label" for="name">نام روش ارسال</label>
+                                    <label class="form-label" for="name">نام روش پرداخت</label>
                                     <input type="text" class="form-control" wire:model.blur='name' id="name" name="name" wire:model="name"
-                                        placeholder="لطفا نام ولایت خود را وارد کنید">
+                                        placeholder>
                                 </div>
                             </div>
                             @error('name')
@@ -34,11 +34,11 @@
                             @enderror
                             <div class="mb-4 row">
                                 <div class="col-sm-12">
-                                    <label class="form-label" for="name">قیمت</label>
-                                    <input type="text" class="form-control" wire:model='price' id="price" name="price" placeholder="">
+                                    <label class="form-label" for="name">کد شناسایی درگاه</label>
+                                    <input type="text" class="form-control" wire:model='merchent_code' id="merchent_code" name="merchent_code" placeholder="">
                                 </div>
                             </div>
-                            @error('price')
+                            @error('merchent_code')
                             <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert">

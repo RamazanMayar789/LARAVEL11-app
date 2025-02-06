@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Admin;
+use App\Repositories\admin\PaymentMethodeRepository;
+use App\Repositories\admin\PaymentMethodeRepositoryInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\admin\CityRepository;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
       $this->app->singleton(CountryRepositoryInterface::class, CountryRepository::class);
       $this->app->singleton(StateRepositoryInterface::class, StateRepository::class);
       $this->app->singleton(DeliveryRepositoryInterface::class, DeliveryRepository::class);
+      $this->app->singleton(PaymentMethodeRepositoryInterface::class, PaymentMethodeRepository::class);
     }
 
     /**

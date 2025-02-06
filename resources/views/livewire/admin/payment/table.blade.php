@@ -3,7 +3,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>لیست روش ها </h4>
+                        <h4>لیست روش پرداخت ها </h4>
                     </div>
                 </div>
             </div>
@@ -13,8 +13,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">اسم روش</th>
-                                   <th scope="col">قیمت</th>
+                                <th scope="col">اسم پرداخت</th>
+                                   <th scope="col">کد شناسایی درگاه</th>
                                 <th class="text-center" scope="col">وضعیت</th>
                             </tr>
                         </thead>
@@ -27,7 +27,7 @@
 
                                 </td>
                                 <td>{{ $payment->name  }}</td>
-                                <td>{{ $payment->price }}</td>
+                                <td>{{ $payment->merchent_code }}</td>
                                 <td class="text-center">
                                     <div class="action-btn">
                                         <a href="javascript:void(0);" wire:click="edit({{ $payment->id }})" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit">

@@ -3,7 +3,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>لیست روش ها </h4>
+                        <h4>لیست روش  ها ارسال</h4>
                     </div>
                 </div>
             </div>
