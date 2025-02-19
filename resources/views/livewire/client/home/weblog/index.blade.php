@@ -1,0 +1,36 @@
+<div>
+<section class="container my-5">
+    <div class="mb-3 w-100 d-flex align-items-center justify-content-between">
+        <h3 class="fs-5 fw-medium">خواندنی‌ها</h3>
+        <a href="#" class="text-info fs-8">
+            مطالب بیشتر در دیجی‌کالا مگ
+            <svg width="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+        </a>
+    </div>
+    <!-- blogs -->
+    <div class="flex-wrap gap-4 d-flex align-items-center justify-content-center">
+        <a href="#" class="border blog rounded-3 d-flex flex-column">
+            <img src="/client/assets/blog/paris-olympics-opening-ceremony.jpg" alt="paris-olympics-opening-ceremony"
+                class="rounded-top-3" />
+            <p class="p-2 my-3 text-black fs-8">۸ لحظه‌ی غافلگیرانه در افتتاحیه المپیک پاریس که خبرساز شد</p>
+        </a>
+        <a href="#" class="border blog rounded-3 d-flex flex-column">
+            <img src="/client/assets/blog/samsung-galaxy-z-fold-6-14.jpg" alt="samsung-galaxy-z-fold-6-14.jpg"
+                class="rounded-top-3" />
+            <p class="p-2 my-3 text-black fs-8">گلکسی زد فولد ۶ اسلیم چندان باریک نخواهد بود</p>
+        </a>
+        <a href="#" class="border blog rounded-3 d-flex flex-column">
+            <img src="/client/assets/blog/Makeup-with-Acne-Prone-Skin.jpeg" alt="Makeup-with-Acne-Prone-Skin.jpeg"
+                class="rounded-top-3" />
+            <p class="p-2 my-3 text-black fs-8">آرایش با پوست مستعد آکنه چه ملاحظاتی دارد؟</p>
+        </a>
+        <a href="#" class="border blog rounded-3 d-flex flex-column">
+            <img src="/client/assets/blog/digipay-cover.jpg" alt="digipay-cover.jpg" class="rounded-top-3" />
+            <p class="p-2 my-3 text-black fs-8">معرفی دیجی‌پی و خدمات مالی آن</p>
+        </a>
+    </div>
+</section>
+</div>

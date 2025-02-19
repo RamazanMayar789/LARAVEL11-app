@@ -9,10 +9,14 @@
         <p class="my-3">لطفا شماره موبایل یا ایمیل خود را وارد کنید</p>
     </div>
     <div>
-        <form action="#" method="post" class="gap-3 mb-4 d-flex flex-column align-items-center justify-content-center">
-            <input type="text" minlength="11" maxlength="13" name="login" placeholder=""
+        <form wire:submit="submit(Object.fromEntries(new FormData($event.target)))"   class="gap-3 mb-4 d-flex flex-column align-items-center justify-content-center">
+            <input type="email"  name="email" placeholder=""
                 class="py-2 border w-100 rounded-3 border-danger" />
             <input type="submit" value="ورود" class="py-2 w-100 btn btn-danger" />
+                @error('mobile')
+            <div class="w-100 alert alert-danger">{{ $message }}</div>
+                @enderror
+
         </form>
 
         <hr />
@@ -33,7 +37,7 @@
                 </button>
             </div>
             <div class="col-6 d-flex justify-content-center">
-                <a class="gap-3 px-3 py-2 d-flex align-content-center btn btn-outline-secondary"  title="google">
+                <a  href="{{url('/gmail') }}"class="gap-3 px-3 py-2 d-flex align-content-center btn btn-outline-secondary"  title="google">
                     <p class="d-none d-md-block fs-7 fw-bold">ورود با</p>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"

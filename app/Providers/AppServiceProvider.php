@@ -22,6 +22,9 @@ use App\Repositories\admin\CategoryRepositoriesInterface;
 use app\Repositories\admin\AdminProductRepositoriesInterface;
 use App\Repositories\admin\DeliveryRepository;
 use App\Repositories\admin\DeliveryRepositoryInterface;
+use App\Repositories\admin\storyRepositoryInterface;
+use App\Repositories\admin\storyRepository;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
       $this->app->singleton(StateRepositoryInterface::class, StateRepository::class);
       $this->app->singleton(DeliveryRepositoryInterface::class, DeliveryRepository::class);
       $this->app->singleton(PaymentMethodeRepositoryInterface::class, PaymentMethodeRepository::class);
+      $this->app->singleton(storyRepositoryInterface::class, storyRepository::class);
+
     }
 
     /**

@@ -13,7 +13,8 @@ use App\Livewire\Admin\Product\Features as ProductFeatures;
 use App\Livewire\Admin\Product\Content as Productcontent;
 use App\Livewire\Admin\State\Index as StateIndex;
 use App\Livewire\Admin\City\Index as CityIndex;
-use App\Livewire\Admin\Payment\Index;
+use App\Livewire\Admin\Story\Index as StoryIndex;
+use App\Livewire\Admin\Slider\Index as SliderIndex;
 use App\Livewire\Admin\Product\CKUplode;
 use App\Livewire\Admin\Product\Index as ProductIndex;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,8 @@ Route::name('admin.')->group(function(){
     Route::get('/product/content/{product}', Productcontent::class)->name('product.content');
     Route::get('/delivery/methode', DeliveryIndex::class)->name('delivery.index');
     Route::get('/payment', PaymentIndex::class)->name('payment.index');
-
+    Route::get('/story', StoryIndex::class)->name('story.index');
+    Route::get('/slider', SliderIndex::class)->name('slider.index');
     Route::post('/ck-uplode/{product}', [CKUplode::class, 'uplode'])->name('ck-uplode');
 
 

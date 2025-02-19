@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
