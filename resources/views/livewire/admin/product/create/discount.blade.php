@@ -3,7 +3,7 @@
         <div class="row">
             <div class="mb-4 col-sm-12">
                 <label for="discount">در صد تخفیف</label>
-                <input type="number" class="form-control" id="discount" name="discount" value="{{@$product->discount }}">
+                <input type="number" class="form-control" id="discount" name="discount" value="{{$product->discount }}">
             </div>
             @error('discount')
                 <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show"
@@ -19,9 +19,11 @@
                     <strong>{{ $message }}</strong>
                 </div>
             @enderror
+
+
             <div class="mb-4 col-sm-12">
                 <label for="discount_duration">تاریخ انقضاء</label>
-                <input type="date" class="form-control" id="discount_duration" value="{{@$product->discount_duration }}" name="discount_duration">
+                <input type="date" class="form-control" id="discount_duration"  value="{{$product->discount_duration }}" name="discount_duration">
             </div>
             @error('discount_duration')
                 <div wire:loading.remove class="mb-4 border-0 alert alert-light-danger alert-dismissible fade show"
@@ -40,7 +42,7 @@
             <div class="mb-4 col-sm-12">
                 <div class="switch form-switch-custom switch-inline form-switch-danger">
                     <input class="switch-input" type="checkbox" role="switch" id="featured" name="featured"
-                       {{-- {{@ $product->featured==true?'checked':'' }}--}} >
+                       {{@ $product->featured==true?'checked':'' }} >
                     <label class="switch-label" for="featured">کالای ویژه</label>
                 </div>
             </div>

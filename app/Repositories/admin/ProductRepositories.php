@@ -60,6 +60,7 @@ class ProductRepositories implements ProductRepositoriesInterface
                 'discount' => $FormData['discount'],
                 'stock' => $FormData['stock'],
                 'featured' => $FormData['featured'],
+                'discount_duration'=>$FormData['discount_duration'],
                 'seller_id' => $FormData['sellerId'],
                 'category_id' => $FormData['categoryId'],
                 'p_code' => $generatedCode

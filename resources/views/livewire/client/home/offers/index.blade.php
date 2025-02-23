@@ -32,170 +32,22 @@
 
         <div class="swiper mySwiper w-100" id="product">
             <div class="swiper-wrapper">
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 1.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
+
+                @foreach($featureProduct as $item)
+                    <a href="{{ route('client.ProductIndex',$item->p_code) }}/{{ $item->seoItems->slug }}" class="text-black swiper-slide">
+                        <div>
+                            <img src="/products/{{ $item->id }}/medium/{{ $item->coverImage->path }}" alt="slide-img" />
+                            <p class="p-1 fs-8 fw-bold ellipsis">{{ $item->name }}</p>
                         </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 2.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
+                        <div class="d-flex align-items-center justify-content-around w-100">
+                            <h6>{{ $item->discount }}</h6>
+                            <div class="mt-3 price">
+                                <p class="fs-8">{{ $item->finalprice }}<span class="fs-9 me-2">افغانی</span></p>
+                                <del class="beforeDiscount fs-9 text-end">{{  number_format($item->price)}}</del>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 3.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 4.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 5.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 6.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 7.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 8.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 9.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 10.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 11.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <div>
-                        <img src="/client/assets/productSlider/slide 12.webp" alt="slide-img" />
-                        <p class="fs-8 fw-bold">هدست سونی مدل MDR-ZX110</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-around w-100">
-                        <h6>2%</h6>
-                        <div class="mt-3 price">
-                            <p class="fs-8">615,000<span class="fs-9 me-2">تومان</span></p>
-                            <del class="beforeDiscount fs-9 text-end">629,000</del>
-                        </div>
-                    </div>
-                </a>
-                <a href="/client/pages/product.html" class="text-black swiper-slide">
-                    <svg width="80" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="my-5 text-info">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    <p class="my-4 fs-8 fw-bold">مشاهده همه</p>
-                </a>
+                    </a>
+                @endforeach
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>

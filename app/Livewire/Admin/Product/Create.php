@@ -27,6 +27,8 @@ class Create extends Component
     public $productImages = [];
     public $images=[];
 
+    public $discount_duration;
+
     public $coverIndex=0;
     public $sellers = [];
     #[Validate(['photos.*' => 'photo.|max:1024'])]
@@ -44,7 +46,10 @@ class Create extends Component
             $products = $this->product = Product::query()
             ->with('seoItems','images')->where('id', $this->productId)->firstOrFail();
             $this->name = $products->name;
+            $this->discount_duration = $products->discount_duration;
             $this->slug = $products->seoItems->slug;
+
+
 
         }
 

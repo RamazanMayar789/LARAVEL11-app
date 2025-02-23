@@ -2,10 +2,32 @@
 
 namespace App\Livewire\Client\Home\Offers;
 
+use Carbon\Carbon;
+use App\Models\Product;
 use Livewire\Component;
 
+use App\Repositories\client\first_page\first_pageRepositoryInterface;
 class Index extends Component
 {
+
+    private $repository;
+
+
+
+    public function boot(first_pageRepositoryInterface $repository){
+
+$this->repository=$repository;
+    }
+
+    public $featureProduct = [];
+
+    public function mount()
+    {
+
+        $this->featureProduct=$this->repository->getFeaturesProducts();
+
+
+    }
 
     public function placeholder()
     {

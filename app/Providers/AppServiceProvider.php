@@ -23,7 +23,12 @@ use app\Repositories\admin\AdminProductRepositoriesInterface;
 use App\Repositories\admin\DeliveryRepository;
 use App\Repositories\admin\DeliveryRepositoryInterface;
 use App\Repositories\admin\storyRepositoryInterface;
+use App\Repositories\admin\sliderRepositoryInterface;
 use App\Repositories\admin\storyRepository;
+use App\Repositories\admin\sliderRepository;
+// use App\Repositories\client\first_page\firstpageRepositoryInterface;
+use App\Repositories\client\first_page\firstpageRepository;
+use App\Repositories\client\first_page\first_pageRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -41,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
       $this->app->singleton(DeliveryRepositoryInterface::class, DeliveryRepository::class);
       $this->app->singleton(PaymentMethodeRepositoryInterface::class, PaymentMethodeRepository::class);
       $this->app->singleton(storyRepositoryInterface::class, storyRepository::class);
+      $this->app->singleton(sliderRepositoryInterface::class, sliderRepository::class);
+      $this->app->singleton(first_pageRepositoryInterface::class,firstpageRepository::class);
 
     }
 

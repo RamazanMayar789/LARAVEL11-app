@@ -6,10 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 @include('layouts.client.Client-Links')
     <title>Digikala</title>
+
+    @stack('style')
 </head>
 
 <body>
    <livewire:client.header.index />
+@php
+$RouteName = Route::current()->getName();
+
+
+@endphp
+   <main class="{{ $RouteName == 'client.ProductIndex' ? 'container-fluid px-0 px-lg-5 mt-4' : '' }}">
     <!-- === mobile menu === -->
     <div class="py-2 bg-white fixed-bottom d-flex justify-content-around d-md-none border-top">
         <a href="#" class="gap-1 text-black d-flex justify-content-center align-items-center flex-column">
@@ -50,6 +58,9 @@
 
     {{ $slot }}
     <!-- === Footer === -->
+
+
+   </main>
  <livewire:client.footer.index />
 
     @include('layouts.client.Client-Script')

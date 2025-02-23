@@ -14,8 +14,8 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col"> عنوان</th>
-                                   <th scope="col">تصویر بند انگشتی</th>
-                                   <th scope="col">استوری</th>
+                                   <th scope="col">تصویر اسلایدر </th>
+
                                 <th class="text-center" scope="col">وضعیت</th>
                             </tr>
                         </thead>
@@ -23,18 +23,13 @@
                             @foreach ($sliders as $item)
                                 <tr>
                                     <td>
-                                  {{ $loop->iteration + ($sliders->first() ? $sliderss->first()->id : 0) - 1 }}
+                                  {{ $loop->iteration + ($sliders->first() ? $sliders->first()->id : 0) - 1 }}
 
 
                                     </td>
                                     <td>{{ $item->title }}</td>
-                                    <td><img src="/sliders/image/{{$item->image}}" width="50" alt="not" ></td>
-                                    <td>
-                                        <button data-story="/sliders/story/{{$item->story}}" type="button" class="mr-2 btn btn-primary"
-                                             data-bs-toggle="modal" data-bs-target="#StoryModal">
-                                          نمایش استوری
-                                        </button>
-                                    </td>
+                                    <td class="text-center"><img src="/sliders/{{$item->image}}" width="50" alt="not" ></td>
+
                                     <td class="text-center">
                                         <div class="action-btn d-flex align-item-center">
 
@@ -59,7 +54,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    
+
                 </div>
 
             </div>

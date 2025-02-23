@@ -3,7 +3,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>لیست روش  ها ارسال</h4>
+                        <h4>لیست استوری  ها </h4>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="action-btn d-flex align-item-center">
-                                            
+
 
                                             <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" wire:click="deleteConfirmation({{ $item->id }})"data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
