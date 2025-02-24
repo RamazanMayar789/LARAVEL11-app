@@ -18,14 +18,10 @@ $this->product=Product::query()
 ->select('id','name','price','discount',
 'discount_duration','category_id','stock','seller_id',
 'p_code','featured')
-->with('images')
+->with('images','coverImage')
 ->firstOrFail();
 
-
-
-
-
-    }
+ }
     public function render()
     {
         return view('livewire.client.product.index');

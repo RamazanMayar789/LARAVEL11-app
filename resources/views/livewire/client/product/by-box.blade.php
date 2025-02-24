@@ -55,9 +55,17 @@
         </div>
 
         <!-- buy btn -->
-        <button class="py-3 mt-3 text-center text-white border-0 d-none d-lg-block bg-danger w-100 rounded-2 fs-8">
-            افزودن به سبد خرید
-        </button>
+
+        @if (Auth::check())
+
+
+            @else
+                <a href="{{ route('client.auth.index') }}" class="py-3 mt-3 text-center text-white border-0 d-none d-lg-block bg-danger w-100 rounded-2 fs-8">
+                    افزودن به سبد خرید
+                </a>
+
+            @endif
+
 
         <!-- Warranty Text -->
         <p class="mt-3 fs-8">

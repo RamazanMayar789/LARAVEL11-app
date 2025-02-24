@@ -41,7 +41,7 @@
     <!-- ====== Product Detail ====== -->
     <section class="my-lg-5 row mx-lg-5">
         <!-- === Picture === -->
-        <livewire:client.product.gallery />
+        <livewire:client.product.gallery :images="$product->images" :productId="$product->id" :coverImage="$product->coverImage"/>
         <!-- === Title & Details === -->
        <livewire:client.product.details :name="$product->name"/>
         <!-- === Seller Detail === -->

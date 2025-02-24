@@ -10,7 +10,7 @@
                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg>
             </button>
-            
+
             <!-- share -->
             <button class="bg-transparent border-0">
                 <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -53,33 +53,24 @@
             </button>
         </div>
         <div class="col col-lg-11">
-            <img src="/client/assets/Product/nothingPhone/1.webp" alt="nothingPhone" class="w-100" />
+            <img src="/products/{{ $productId }}/large/{{ $coverImage->path }}" alt="nothingPhone" class="w-100" />
         </div>
     </div>
     <!-- == desktop gallery == -->
     <div>
         <!-- Button trigger modal -->
         <div class="gap-2 mx-3 d-none d-lg-flex align-items-center">
-            <button type="button" class="p-0 m-0 bg-transparent border opacity-50 rounded-2" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <img src="/client/assets/Product/nothingPhone/1.webp" alt="image"
-                    class="p-1 w-75 h-50 object-fit-contain" />
-            </button>
-            <button type="button" class="p-0 m-0 bg-transparent border opacity-50 rounded-2" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <img src="/client/assets/Product/nothingPhone/3.webp" alt="image"
-                    class="p-1 w-75 h-50 object-fit-contain" />
-            </button>
-            <button type="button" class="p-0 m-0 bg-transparent border opacity-50 rounded-2" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <img src="/client/assets/Product/nothingPhone/4.webp" alt="image"
-                    class="p-1 w-75 h-50 object-fit-contain" />
-            </button>
-            <button type="button" class="p-0 m-0 bg-transparent border opacity-50 rounded-2" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                <img src="/client/assets/Product/nothingPhone/5.webp" alt="image"
-                    class="p-1 w-75 h-50 object-fit-contain" />
-            </button>
+            @foreach ($images as $item)
+                <button type="button" class="p-0 m-0 bg-transparent border opacity-50 rounded-2" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    <img src="/products/{{ $productId }}/small/{{ $item->path }}" alt="image"
+                        class="p-1 w-75 h-50 object-fit-contain" />
+                </button>
+            @endforeach
+
+
+
+
         </div>
 
         <!-- Gallery Modal -->
@@ -105,26 +96,15 @@
                                     aria-label="Slide 5"></button>
                             </div>
                             <div class="carousel-inner w-100">
-                                <div class="carousel-item active">
-                                    <img src="/client/assets/Product/nothingPhone/1.webp"
-                                        class="mx-auto my-5 d-block w-50 h-100" alt="nothingPhone" />
-                                </div>
-                                <div class="carousel-item">
-                                    <video src="/client/assets/Product/nothingPhone/2.mp4"
-                                        class="mx-auto my-5 d-block w-75 h-100" controls></video>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/client/assets/Product/nothingPhone/3.webp"
-                                        class="mx-auto my-5 d-block w-50 h-100" alt="nothingPhone" />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/client/assets/Product/nothingPhone/4.webp"
-                                        class="mx-auto my-5 d-block w-50 h-100" alt="nothingPhone" />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/client/assets/Product/nothingPhone/5.webp"
-                                        class="mx-auto my-5 d-block w-50 h-100" alt="nothingPhone" />
-                                </div>
+
+                                @foreach ($images as $item)
+
+
+                                    <div class="carousel-item {{ $loop->first ?'active' :'' }}">
+                                        <img src="/products/{{ $productId }}/small/{{ $item->path }}"
+                                            class="mx-auto my-5 d-block w-50 h-100" alt="nothingPhone" />
+                                    </div>
+                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

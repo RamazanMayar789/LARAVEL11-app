@@ -11,6 +11,7 @@ Route::name('client.')->group(function(){
 Route::get('/', HomeIndex::class)->name('home');
 Route::get('/product/{p_code}/{slug?}', ProductIndex::class)->name('ProductIndex');
 Route::get('/auth', clientIndex::class)->name('auth.index');
+Route::get('/logout', [clientIndex::class,'clientlogout'])->name('logout');
     Route::get('/gmail', [clientIndex::class, 'redirectToProvider'])->name('gmail');
     Route::get('/Auth/gmail/callback', [clientIndex::class, 'handleProviderCallback'])
     ->name('gmail.callback');

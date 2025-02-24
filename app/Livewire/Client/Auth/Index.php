@@ -4,6 +4,8 @@ namespace App\Livewire\Client\Auth;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendsmsNotification;
@@ -39,6 +41,13 @@ public $email;
          $repository->checkUser($user);
         return redirect()->route('client.home');
 
+    }
+    public function clientlogout(){
+
+        Session::flush();
+        Auth::logout();
+
+        return redirect()->route('client.auth.index');
     }
     public function render()
     {
