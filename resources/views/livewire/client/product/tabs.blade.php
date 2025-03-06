@@ -1,13 +1,13 @@
 <div>
-  
+
 <section id="details">
-        <ul class="px-0 swiper myProductFeatureSwiper nav nav-tabs px-lg-auto" id="nav">
+        <ul wire:ignore class="px-0 swiper myProductFeatureSwiper nav nav-tabs px-lg-auto" id="nav">
             <div class="swiper-wrapper">
-                <li class="border-0 swiper-slide nav-item fs-8 active" data-target="#intro-content">
+                <li wire:click='changeTab(1)' class="border-0 swiper-slide nav-item fs-8 active" data-target="#intro-content">
                     <a class="nav-link d-flex flex-column" href="#">معرفی</a>
                     <span class="indicator"></span>
                 </li>
-                <li class="border-0 swiper-slide nav-item fs-8 d-flex flex-column" data-target="#review-content">
+                <li wire:click='changeTab(2)' class="border-0 swiper-slide nav-item fs-8 d-flex flex-column" data-target="#review-content">
                     <a class=" nav-link d-flex flex-column"  href="#">بررسی تخصصی</a>
                     <span class="indicator"></span>
 
@@ -15,11 +15,11 @@
                 </li>
 
 
-                <li class="border-0 swiper-slide nav-item fs-8 d-flex flex-column" data-target="#detail-content">
+                <li wire:click='changeTab(3)' class="border-0 swiper-slide nav-item fs-8 d-flex flex-column" data-target="#detail-content">
                     <a class="nav-link d-flex flex-column" href="#">مشخصات</a>
                     <span class="indicator"></span>
                 </li>
-                <li class="border-0 swiper-slide nav-item fs-8 d-flex flex-column" data-target="#comment-content">
+                <li wire:click='changeTab(4)' class="border-0 swiper-slide nav-item fs-8 d-flex flex-column" data-target="#comment-content">
                     <a class="nav-link d-flex flex-column" href="#">دیدگاه‌ها</a>
                     <span class="indicator"></span>
                 </li>
@@ -31,51 +31,17 @@
         </ul>
         <div id="content" class="mt-4">
             <!-- introduction -->
-            <div id="intro-content" class="content-div mx-lg-5 active">
+            <div id="intro-content" class="content-div mx-lg-5 {{ $activeTab == 1 ? 'active' : '' }}">
                 <div class="mb-3 d-flex flex-column">
                     <h5>معرفی</h5>
                     <div class="border-title"></div>
                 </div>
                 <div class="content-section">
                     <p class="fs-8">
-                        پس از گذشت چند ماه از معرفی phone 2، کمپانی تازه‌نفس ناتینگ، سومین گوشی هوشمند خود با عنوان Phone 2a
-                        را
-                        به بازار معرفی کرد. این گوشی موبایل با پیروی از طراحی زیبا و منحصر به فرد ناتینگ، سخت افزار قدرتمند
-                        و
-                        صفحه نمایش با کیفیت، توانسته است همانند دو مدل پیشین در مدت زمان کمی طرفداران پرشماری در سراسر دنیا
-                        پیدا
-                        کند. در طراحی پشت گوشی، همان فرم شفاف و شیشه‌ای که امضای ناتینگ است، حفظ شده است؛ با این تفاوت که،
-                        LEDها
-                        در مقایسه با phone 2 به 3 عدد کاهش پیدا کرده‌اند. در پشت گوشی دو ..
+                        {{ $shortDescription }}
                     </p>
                     <div class="more-content">
-                        <p class="fs-8">
-                            پس از گذشت چند ماه از معرفی phone 2، کمپانی تازه‌نفس ناتینگ، سومین گوشی هوشمند خود با عنوان
-                            Phone 2a
-                            را به بازار معرفی کرد. این گوشی موبایل با پیروی از طراحی زیبا و منحصر به فرد ناتینگ، سخت افزار
-                            قدرتمند
-                            و صفحه نمایش با کیفیت، توانسته است همانند دو مدل پیشین در مدت زمان کمی طرفداران پرشماری در سراسر
-                            دنیا
-                            پیدا کند. در طراحی پشت گوشی، همان فرم شفاف و شیشه‌ای که امضای ناتینگ است، حفظ شده است؛ با این
-                            تفاوت
-                            که، LEDها در مقایسه با phone 2 به 3 عدد کاهش پیدا کرده‌اند. در پشت گوشی دو دوربین 50 مگاپیکسلی
-                            عریض و
-                            فوق عریض تعبیه شده‌اند که تصاویر فوق العاده با کیفیتی ثبت می‌کنند و در کنار دوربین سلفی 32
-                            مگاپیکسلی،
-                            یک پکیج دوربین قدرتمند را تشکیل می‌دهند. در جلوی گوشی، یک صفحه نمایش با کیفیت و شفاف 6.7 اینچی
-                            با
-                            تراکم پیکسلی 394 تعبیه شده است که روشنایی فوق العاده‌ی 1300 نیت دارد. در بخش پردازنده، ناتینگ 2a
-                            به یک
-                            پردازنده هشت هسته‌ای با چیپست Mediatek Dimensity 7200 Pro (4n) مجهز شده است که عملکرد قدرتمندی
-                            دارد.
-                            باتری این گوشی ظرفیت 5000 میلی‌آمپرساعتی دارد و از شارژ سریع 45 واتی پشتیبانی می‌کند. در بخش
-                            سیستم
-                            عامل، کمپانی ناتینگ، اندروید نسخه 14.0 با فضای کاربری Nothing OS2.5.5 را روی این گوشی نصب کرده
-                            است و
-                            فناوری تشخیص چهره، حسگر اثر انگشت زیر صفحه نمایش و حافظه رم 12 گیگابایتی، ارزش خرید این موبایل
-                            را
-                            افزایش داده‌اند.
-                        </p>
+
                     </div>
                     <button class="mt-2 toggle-btn fs-8 text-info">
                         بیشتر
@@ -87,134 +53,14 @@
                 </div>
             </div>
             <!-- reviews -->
-            <div id="review-content" class="content-div mx-lg-5">
+            <div id="review-content" class="content-div mx-lg-5 {{ $activeTab == 2 ? 'active' : '' }}">
                 <div class="mb-3 d-flex flex-column">
                     <h5>بررسی تخصصی</h5>
                     <div class="border-title"></div>
                 </div>
                 <div class="content-section">
-                    <h6 class="my-2">ناتینگ فون 2a خاص ترین میان رده بازار</h6>
-                    <p class="fs-8">
-                        پس از گذشت چند ماه از معرفی phone 2، کمپانی تازه‌نفس ناتینگ، سومین گوشی هوشمند خود با عنوان Phone 2a
-                        را
-                        به بازار معرفی کرد. این گوشی موبایل با پیروی از طراحی زیبا و منحصر به فرد ناتینگ، سخت افزار قدرتمند
-                        و
-                        صفحه نمایش با کیفیت، توانسته است همانند دو مدل پیشین در مدت زمان کم، طرفداران پرشماری در سراسر دنیا
-                        پیدا
-                        کند. در ادامه به بررسی کامل این گوشی پرداخته می‌پردازیم.
-                    </p>
-                    <div class="more-content">
-                        <hr />
 
-                        <p class="fw-bold my-lg-4">طراحی و ساخت</p>
-                        <div class="mb-3 row">
-                            <div class="col col-lg-9">
-                                <p class="fs-8 fw-medium">
-                                    طراحی این گوشی در یک کلام خاص و دوست داشتنی است. در بخش پشتی گوشی، همان فرم شفاف که
-                                    امضای ناتینگ
-                                    است، حفظ شده است؛ با این تفاوت که، LEDهای گلیف اینترفیس در مقایسه با phone 2 به 3 عدد
-                                    کاهش پیدا
-                                    کرده‌اند. قاب پشتی از پلاستیک ساخته شده‌است که جذب بالایی در برابر اثر انگشت دارد. در
-                                    زیر این قاب
-                                    شفاف بخش‌هایی از سخت افزار گوشی دیده می‌شود که از الگوی خاصی پیروی می‌کند و طبق گفته‌ی
-                                    کمپانی، این
-                                    الگو از نقشه‌ی مترو نیویورک الهام گرفته شده است.
-                                </p>
-                            </div>
-                            <div class="col col-lg-3 h-25">
-                                <img src="/client/assets/Product/nothingPhone/review1.jpg" alt="review image"
-                                    class="h-100 w-100 rounded-4" />
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col col-lg-3 h-25">
-                                <img src="/client/assets/Product/nothingPhone/review2.jpg" alt="review image"
-                                    class="h-100 w-100 rounded-4" />
-                            </div>
-                            <div class="col col-lg-9">
-                                <p class="fs-8 fw-medium">
-                                    طراحی و نوع قرارگیری دوربین‌ها هم به نوع خود جالب هستند و نسبت به ناتینگ 1 و 2 تغییر
-                                    کرده‌اند.
-                                    بیرون زدگی دوربین‌ها آزاردهنده نیست و به گونه‌ای طراحی شده‌اند که در نگاه اول شما را یاد
-                                    شخصیت‌های
-                                    کارتونی یا چشم‌های یک ربات می‌اندازند. ابعاد این گوشی 161.7 x 76.3 x 8.6 میلی‌متر است و
-                                    با وزن 190
-                                    گرمی، لبه‌های صاف و گوشه‌های خمیده، یک گوشی خوش‌دست محسوب می‌شود که حس خوبی را به
-                                    کاربران خود
-                                    منتقل می‌کند.
-                                </p>
-                            </div>
-                        </div>
-                        <hr />
-                        <p class="fw-bold my-lg-4">GLYPH Interface</p>
-                        <div class="mb-3 row">
-                            <div class="col col-lg-9">
-                                <p class="fs-8 fw-medium">
-                                    سیستم گلیف اینترفیس، همان LEDهای به کار رفته در پشت گوشی‌های ناتینگ است. همانطور که گفته
-                                    شد، این
-                                    LEDها در ناتینگ 2a به 3 عدد کاهش پیدا کرده‌اند. اما همچنان جذاب هستند و در هنگام روشن
-                                    شدن، همه‌ی
-                                    نگاه‌ها را به سمت گوشی شما جذب می‌کنند. در منوی تنظیمات، می‌توان جزییات بسیار زیادی برای
-                                    اعلان‌ها
-                                    مشخص کرد. به عنوان مثال، برای هر تماس گیرنده کدام LED و به چه صورت روشن و خاموش شود. یکی
-                                    دیگر از
-                                    قابلیت‌های جذاب این سیستم، در هنگام استفاده از تایمر گوشی است که با گذشت زمان، نور یکی
-                                    از LEDها کم
-                                    و کمتر می‌شود و لازم نیست دائما به صفحه نمایش گوشی خیره شوید.
-                                </p>
-                            </div>
-                            <div class="col col-lg-3 h-25">
-                                <img src="/client/assets/Product/nothingPhone/review3.jpg" alt="review image"
-                                    class="h-100 w-100 rounded-4" />
-                            </div>
-                        </div>
-                        <hr />
-                        <p class="fw-bold my-lg-4">صفحه نمایش</p>
-                        <div class="mb-3 row">
-                            <div class="col col-lg-3 h-25">
-                                <img src="/client/assets/Product/nothingPhone/review2.jpg" alt="review image"
-                                    class="h-100 w-100 rounded-4" />
-                            </div>
-                            <div class="col col-lg-9">
-                                <p class="fs-8 fw-medium">
-                                    صفحه نمایش 2a یکی از بزرگترین مزیت‌های این گوشی است که تفاوت خاصی با نسخه پرچمدار ناتینگ
-                                    2 ندارد و
-                                    کیفیت فوق‌العاده‌ی آن حفظ شده است. در بخش روبروی گوشی، یک صفحه نمایش 6.7 اینچی AMOLED با
-                                    رزولوشن
-                                    1080X 2412 با پشتیبانی از 1 میلیارد رنگ قرار دارد. این صفحه نمایش با بهره‌مندی از
-                                    روشنایی عالیِ
-                                    1300 نیتی، تصاویر را با شفافیت و جزییات کم‌نظیری نمایش می‌دهد. از طرفی، حاشیه‌های بسیار
-                                    کم این
-                                    صفحه باعث شده است تا نسبت تصویر به بدنه آن به 87.6 درصد افزایش یابد که عدد فوق العاده‌ای
-                                    محسوب
-                                    می‌شود.
-                                </p>
-                            </div>
-                        </div>
-                        <hr />
-                        <p class="fw-bold my-lg-4">دوربین‌های پشتی</p>
-                        <div class="mb-3 row">
-                            <div class="col col-lg-9">
-                                <p class="fs-8 fw-medium">
-                                    ناتینگ فون، دو دوربین پشتی را در این گوشی حفظ کرده است و خبری از دوربین‌های ماکرو یا تله
-                                    فوتو
-                                    نیست. اما این دو دوربین با کیفیت بالایی ارائه شده‌اند. دوربین اصلی این گوشی به یک لنز
-                                    عریض با
-                                    رزولوشن 50 مگاپیکسل مجهز شده است که دیافراگم 1.9 دارد. تصاویر ثبت شده با این دوربین از
-                                    کیفیت
-                                    بالایی برخوردارند. در بحث عکاسی در شب هم، عملکرد عالی آن حفظ می‌شود و همانطور که در
-                                    تصاویر مشاهده
-                                    می‌کنید، عکس‌ها نویز بسیار کمی دارند. این دوربین امکان فیلم برداری 4k با نرخ 30 فریم بر
-                                    ثانیه و
-                                    فیلم‌برداری 1080p با سرعت 120 فریم بر ثانیه را دارد.
-                                </p>
-                            </div>
-                            <div class="col col-lg-3 h-25">
-                                <img src="/client/assets/Product/nothingPhone/review3.jpg" alt="review image"
-                                    class="h-100 w-100 rounded-4" />
-                            </div>
-                        </div>
-                    </div>
+                    {!! $longDescription !!}
                     <button class="mt-2 toggle-btn fs-8 text-info">
                         بیشتر
                         <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -225,7 +71,7 @@
                 </div>
             </div>
             <!-- details -->
-            <div id="detail-content" class="content-div mx-lg-5">
+            <div id="detail-content" class="content-div mx-lg-5 {{ $activeTab == 3 ? 'active' : '' }}">
                 <div class="mb-3 d-flex flex-column">
                     <h5>مشخصات</h5>
                     <div class="border-title"></div>

@@ -40,10 +40,10 @@
 
             <div>
                 <div class="gap-3 d-flex">
-                    <p class="text-secondary fs-8"><s>2,400,000</s></p>
-                    <span class="px-2 py-1 text-white bg-danger fs-8 rounded-5">25%</span>
+                    <p class="text-secondary fs-8"><s>{{ $price }}</s></p>
+                    <span class="px-2 py-1 text-white bg-danger fs-8 rounded-5">{{ $discount }}%</span>
                 </div>
-                <p class="mt-3 fw-bold">1,799,000 <span class="fs-8">تومان</span></p>
+                <p class="mt-3 fw-bold">{{ $finalprice }} <span class="fs-8">افغانی</span></p>
             </div>
         </div>
 
@@ -54,12 +54,30 @@
             <p class="text-success fs-8 fw-medium">🧺 در سبد خرید ۱۰۰۰+ نفر</p>
         </div>
 
+
         <!-- buy btn -->
 
         @if (Auth::check())
 
+            @if (!$incart)
+                <button wire:click='addToCart'
+                    class="py-3 mt-3 text-center text-white border-0 d-none d-lg-block bg-danger w-100 rounded-2 fs-8">
+                    <span wire:loading.remove>افزودن به سبد خرید</span>
+                    <div class="loader" wire:loading="addToCart"></div>
+                </button>
+
 
             @else
+                    <button class="py-3 mt-3 text-center text-white border-0 d-none d-lg-block bg-info w-100 rounded-2 fs-8">
+                        موجود در سبد خرید
+                        <a href="" class="text-secondary"> سبد خرید</a>
+                    </button>
+
+                @endif
+
+
+
+        @else
                 <a href="{{ route('client.auth.index') }}" class="py-3 mt-3 text-center text-white border-0 d-none d-lg-block bg-danger w-100 rounded-2 fs-8">
                     افزودن به سبد خرید
                 </a>

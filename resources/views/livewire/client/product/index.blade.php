@@ -45,7 +45,7 @@
         <!-- === Title & Details === -->
        <livewire:client.product.details :name="$product->name"/>
         <!-- === Seller Detail === -->
-     <livewire:client.product.by-box/>
+     <livewire:client.product.by-box :price="$product->price" :productId="$product->id" :discount="$product->discount" :finalprice="$product->finalprice"/>
     </section>
 
     <!-- ====== Product Options ====== -->
@@ -81,7 +81,7 @@
 
     <!-- ====== Product more Details ====== -->
 
-<livewire:client.product.tabs>
+<livewire:client.product.tabs  :productId="$product->id"  />
     <!-- ====== Bought next to it ====== -->
 
 <livewire:client.product.beside>
