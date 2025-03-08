@@ -44,7 +44,7 @@ class Create extends Component
         if ($_GET and $_GET['p_id']) {
             $this->productId = $_GET['p_id'];
             $products = $this->product = Product::query()
-            ->with('seoItems','images')->where('id', $this->productId)->firstOrFail();
+            ->with(['seoItems','images'])->where('id', $this->productId)->firstOrFail();
             $this->name = $products->name;
             $this->discount_duration = $products->discount_duration;
             $this->slug = $products->seoItems->slug;

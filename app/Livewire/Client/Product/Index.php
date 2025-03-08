@@ -28,14 +28,14 @@ class Index extends Component
                 'p_code',
                 'featured'
             )
-            ->with('images', 'coverImage')
+            ->with(['images', 'coverImage','seller'])
             ->firstOrFail();
         if ($product) {
 
             $discountAmount = $product->discount ? ($product->price * $product->discount / 100) : 0;
 
             $product->finalprice = $product->price - $discountAmount;
-           
+
         }
 
         $this->product = $product;

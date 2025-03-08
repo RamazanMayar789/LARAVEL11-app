@@ -24,8 +24,9 @@ class Features extends Component
     }
     public function mount(Product $product){
       $categoryId= $product->category_id;
-      $this->productId= $product->id;
-    $this->features=CategoryFeature::query()->where('category_id',$categoryId)->get();
+     $category=Category::query()->find($categoryId);
+     $this->productId=$product->id;
+    $this->features=CategoryFeature::query()->where('category_id',$category->parent->id)->get();
 
     }
 

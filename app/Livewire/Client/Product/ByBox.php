@@ -13,6 +13,8 @@ class ByBox extends Component
     public $discount;
     public $finalprice;
 
+    public $sellerName;
+
     public $productId;
 
     public $incart=false;

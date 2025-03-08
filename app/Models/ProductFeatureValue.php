@@ -9,26 +9,40 @@ class ProductFeatureValue extends Model
 {
     use SoftDeletes;
     protected $guarded=[];
-    public function submit($FormData, $productId)
-    {
 
 
+    public function categoryFeature(){
 
-        foreach ($FormData as $value) {
-
-            list($featureId, $featureValueId) = explode('_', $value);
-            ProductFeatureValue::query()->updateOrCreate(
-                [
-                    'product_id' => $productId,
-                    'category_feature_id' => $featureId,
-                ],
-                [
-                    'category_feature_value_id' => $featureValueId,
-                ]
-            );
-
-
-        }
+        return $this->belongsTo(CategoryFeature::class);
     }
 
+
+    public function categoryFeatureValue()
+    {
+
+        return $this->belongsTo(featureValue::class);
+    }
+    // public function submit($FormData, $productId)
+    // {
+
+
+
+    //     foreach ($FormData as $value) {
+
+    //         list($featureId, $featureValueId) = explode('_', $value);
+    //         ProductFeatureValue::query()->updateOrCreate(
+    //             [
+    //                 'product_id' => $productId,
+    //                 'category_feature_id' => $featureId,
+    //             ],
+    //             [
+    //                 'category_feature_value_id' => $featureValueId,
+    //             ]
+    //         );
+
+
+    //     }
+    // }
+
 }
+

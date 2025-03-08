@@ -15,7 +15,7 @@ class firstpageRepository implements first_pageRepositoryInterface
         $featureProduct = Product::query()
             ->whereNotNull('discount_duration')
             ->where('discount_duration', '>', $userVisitDate)
-            ->where('featured', true)->with('coverImage','seoItems')
+            ->where('featured', true)->with(['coverImage','seoItems'])
             ->
             get();
 

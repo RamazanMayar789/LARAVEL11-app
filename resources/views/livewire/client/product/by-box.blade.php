@@ -14,7 +14,7 @@
             </svg>
             <div>
                 <div class="my-3 d-flex">
-                    <p>پرشین مارکت</p>
+                    <p>{{ $sellerName }} </p>
                     <p class="text-success fs-8 fw-medium pe-3">منتخب</p>
                 </div>
                 <div class="gap-3 d-flex justify-content-center fs-8">

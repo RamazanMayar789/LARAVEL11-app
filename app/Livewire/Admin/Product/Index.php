@@ -51,7 +51,7 @@ class Index extends Component
 
     public function render()
     {
-        $products = Product::query()->with('category', 'coverImage')->paginate(10);
+        $products = Product::query()->with(['category', 'coverImage'])->paginate(10);
 
         return view(
             'livewire.admin.product.index',

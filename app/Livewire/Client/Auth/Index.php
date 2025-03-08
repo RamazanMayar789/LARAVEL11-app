@@ -27,6 +27,7 @@ public $email;
         $existingUser = User::query()->where('email', $FormData['email'])->first();
 
         if($existingUser){
+            Auth::login($existingUser, true);
             return redirect()->route('client.home');
 
         }

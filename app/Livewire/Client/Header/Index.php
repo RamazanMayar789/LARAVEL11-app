@@ -13,12 +13,13 @@ class Index extends Component
     public $cart=0;
 public $productId;
     public function mount(){
+
        $this->cart= Cart::query()->where('user_id',Auth::id())->count();
     }
     #[On('add-to-cart')]
-    public function getUserCart($productId){
+    public function getUserCart($ProductId){
 
-        $this->cart=$this->cart+1;
+$this->cart=$this->cart+1;
     }
     public function render()
     {
