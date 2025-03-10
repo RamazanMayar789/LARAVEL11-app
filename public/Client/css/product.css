@@ -5,6 +5,11 @@
   color: #b12ba4;
 }
 
+.vote-loader {
+    width: 24px;
+    background: radial-gradient(circle closest-side, #b1b1b1 90%, #0000) 0 / calc(100% / 3) 100% space;
+}
+
 .slider {
   overflow: hidden;
   height: 25px; /* Adjust based on the height of your text */

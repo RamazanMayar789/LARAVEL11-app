@@ -5,6 +5,7 @@ namespace App\Livewire\Client\Product;
 use App\Models\Product;
 use App\Models\ProductFeatureValue;
 use App\Models\ProductReview;
+use App\Models\productReviewVote;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Hekmatinasser\Verta\Verta;
@@ -49,7 +50,7 @@ class Tabs extends Component
 
         App()->setLocale('fa');
 
-
+        $this->getProductReview($this->productId);
 
 
 
@@ -88,8 +89,62 @@ class Tabs extends Component
         }
     }
 
+    public function getAfghanDateProperty()
+    {
+        $afghanMonths = [
+            'فروردین' => 'حمل',
+            'اردیبهشت' => 'ثور',
+            'خرداد' => 'جوزا',
+            'تیر' => 'سرطان',
+            'مرداد' => 'اسد',
+            'شهریور' => 'سنبله',
+            'مهر' => 'میزان',
+            'آبان' => 'عقرب',
+            'آذر' => 'قوس',
+            'دی' => 'جدی',
+            'بهمن' => 'دلو',
+            'اسفند' => 'حوت',
+        ];
+
+        // دریافت تاریخ امروز
+        $verta = new Verta(); // مقدار پیش‌فرض تاریخ امروز است
+        $persianDate = $verta->format('j F Y'); // خروجی: 17 اسفند 1402
+
+        // جایگزینی ماه ایرانی با ماه افغانی
+        $afghanDate = str_replace(array_keys($afghanMonths), array_values($afghanMonths), $persianDate);
+
+        return $afghanDate; // خروجی: 17 حوت 1402
+    }
+
+
+    public function setVote($status,$ReviewId){
+
+            if(Auth::check()){
+
+            productReviewVote::query()->updateOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'product_reviews_id' => $ReviewId,
+                ]
+                ,
+                [
+                    'status' => $status
+                ]
+            );
+
+
+            $this->getProductReview($this->productId);
+            }else{
+
+                return redirect()->route('client.auth.index');
+            }
+
+    }
+
     public function getProductFeatures($productId)
     {
+
+
 
 
         $this->productFeatures = ProductFeatureValue::query()
@@ -100,10 +155,36 @@ class Tabs extends Component
     public function getProductReview($productId)
     {
 
-       $this->productReviews=ProductReview::query()->where([
+       $this->productReviews=ProductReview::query()
+
+       ->where([
         'product_id'=>$productId,
-        'status'=>'approved'
-       ])->get();
+        'status'=>'approved',
+
+       ])
+       ->with('user','votes')
+       ->withCount([
+        'votes as likeCount'=>function($query){
+            $query->where('status','like');
+        },
+        'votes as dislikecount'=>function($query){
+
+            $query->where('status','dislike');
+        },
+
+        ])->withExists([
+                    'votes as like' => function ($query) {
+                        $query->where('status', 'like');
+                    },
+
+                    'votes as dislike' => function ($query) {
+                        $query->where('status', 'dislike');
+                    },
+
+        ])
+
+        -> get();
+
 
 
 

@@ -15,4 +15,9 @@ class ProductReview extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function votes(){
+
+        return $this->hasMany(productReviewVote::class,'product_reviews_id','id');
+    }
 }

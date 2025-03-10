@@ -50,7 +50,7 @@
 
                     {{ auth()->user()->name }}
                    @else
-                    <a href="/client/pages/login.html"
+                    <a href="{{ route('client.auth.index') }}"
                         class="gap-2 px-3 py-2 text-black border rounded d-flex align-items-center fs-8 border-secondary-subtle">
                     <span>
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
