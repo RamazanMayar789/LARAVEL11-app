@@ -544,7 +544,7 @@
                                 <h6 class="mt-5 fs-8">نکات مثبت</h6>
                                 <div class="mt-3 border form-group d-flex align-items-center justify-content-between rounded-3">
                                     <input type="text" wire:model='InputPositive' id="inputTextPositive" class="border-0 form-control" />
-                                    <button type="button" id="addButtonPositive" wire:click='addPositiveItem' class="m-2 bg-transparent border-0 fs-3">+</button>
+                                    <button type="button" id="addButtonPositive" wire:click="addItem('positive')" class="m-2 bg-transparent border-0 fs-3">+</button>
                                 </div>
                                 @error('InputPositive')
                                     <div class="mt-2 alert alert-danger" >{{ $message }}</div>
@@ -560,7 +560,7 @@
                                                 </svg>
                                                 {{$item}}
                                             </div>
-                                            <button wire:click="removepositive({{ $index }})" class="bg-transparent border-0 deleteButton">
+                                            <button wire:click="removeItem('positive',{{ $index }})" class="bg-transparent border-0 deleteButton">
                                                 <svg width="18" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                                     stroke="currentColor" class="text-secondary">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -577,7 +577,7 @@
                                 <h6 class="mt-5 fs-8">نکات منفی</h6>
                                 <div class="mt-3 border form-group d-flex align-items-center justify-content-between rounded-3">
                                     <input wire:model='InputNegative' type="text" id="inputTextNegative" class="border-0 form-control" />
-                                    <button type="button" id="addButtonNegative" class="m-2 bg-transparent border-0 fs-3" wire:click='addNegativeItem'>+</button>
+                                    <button type="button" id="addButtonNegative" class="m-2 bg-transparent border-0 fs-3" wire:click="addItem('Negative')">+</button>
                                 </div>
 
                                 @error('InputNegative')
@@ -594,7 +594,7 @@
                                             </svg>
                                            {{ $item }}
                                         </div>
-                                        <button wire:click="removeNegativeItem({{ $index }})" class="bg-transparent border-0 deleteButton">
+                                        <button wire:click="removeItem('Negative',{{ $index }})" class="bg-transparent border-0 deleteButton">
                                             <svg width="18" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                                 stroke="currentColor" class="text-secondary">
                                                 <path stroke-linecap="round" stroke-linejoin="round"

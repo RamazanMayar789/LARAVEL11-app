@@ -194,6 +194,25 @@ class Tabs extends Component
 
 
 
+   public function addItem($type){
+
+    $inputFiled=$type==='positive'?'InputPositive':'InputNegative';
+    $itemFiled=$type==='positive'?'positiveItems':'NegativeItems';
+
+
+        $this->validate([
+            $inputFiled => 'required|min:3|max:50'
+        ], [
+           $inputFiled. '.required' => 'فیلد الزامی است',
+            $inputFiled . '.min' => '  حداقل باید 3 کراکتر باشد',
+            $inputFiled . '.max' => '  حداکثر باید 50 کراکتر باشد',
+        ]);
+
+        $this->{ $itemFiled }[] = $this->{$inputFiled};
+        $this->{$inputFiled} = '';
+   }
+
+
     public function submit($FormData)
     {
 
@@ -233,35 +252,35 @@ class Tabs extends Component
     }
 
 
-    public function addPositiveItem()
-    {
-        $this->validate([
-            'InputPositive' => 'required|min:3|max:50'
-        ], [
-            'InputPositive.required' => 'فیلد الزامی است',
-            'InputPositive.min' => '  حداقل باید 3 کراکتر باشد',
-            'InputPositive.max' => '  حداکثر باید 50 کراکتر باشد',
-        ]);
+    // public function addPositiveItem()
+    // {
+    //     $this->validate([
+    //         'InputPositive' => 'required|min:3|max:50'
+    //     ], [
+    //         'InputPositive.required' => 'فیلد الزامی است',
+    //         'InputPositive.min' => '  حداقل باید 3 کراکتر باشد',
+    //         'InputPositive.max' => '  حداکثر باید 50 کراکتر باشد',
+    //     ]);
 
-        $this->positiveItems[] = $this->InputPositive;
-        $this->InputPositive = '';
+    //     $this->positiveItems[] = $this->InputPositive;
+    //     $this->InputPositive = '';
 
-    }
-    public function addNegativeItem()
-    {
-        $this->validate([
-            'InputNegative' => 'required|min:3|max:50'
-        ], [
-            'InputNegative.required' => 'فیلد الزامی است',
-            'InputNegative.min' => '  حداقل باید 3 کراکتر باشد',
-            'InputNegative.max' => '  حداکثر باید 3 کراکتر باشد',
-        ]);
+    // }
+    // public function addNegativeItem()
+    // {
+    //     $this->validate([
+    //         'InputNegative' => 'required|min:3|max:50'
+    //     ], [
+    //         'InputNegative.required' => 'فیلد الزامی است',
+    //         'InputNegative.min' => '  حداقل باید 3 کراکتر باشد',
+    //         'InputNegative.max' => '  حداکثر باید 3 کراکتر باشد',
+    //     ]);
 
-        $this->NegativeItems[] = $this->InputNegative;
-        $this->InputNegative = '';
+    //     $this->NegativeItems[] = $this->InputNegative;
+    //     $this->InputNegative = '';
 
 
-    }
+    // }
 
     public function removeNegativeItem($index)
     {
@@ -276,6 +295,11 @@ class Tabs extends Component
         array_splice($this->positiveItems, $index, 1);
 
 
+    }
+
+    public function removeItem($type,$index){
+        $itemFiled = $type === 'positive' ? 'positiveItems' : 'NegativeItems';
+        array_splice($this->{$itemFiled}, $index, 1);
     }
 
     public function render()
