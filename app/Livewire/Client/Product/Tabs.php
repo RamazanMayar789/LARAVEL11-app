@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Client\Product;
 
+use App\Models\answer;
+use App\Models\answerVote;
 use App\Models\Product;
 use App\Models\ProductFeatureValue;
 use App\Models\ProductReview;
 use App\Models\productReviewVote;
+use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Hekmatinasser\Verta\Verta;
@@ -17,6 +20,8 @@ class Tabs extends Component
 
     public $afghanMonths;
 
+    public $body;
+
     public $sellerName;
 
     public $productId;
@@ -26,20 +31,25 @@ class Tabs extends Component
 
     public $InputNegative = '';
     public $positiveItems = [];
+
+    public $productAnswer=[];
+
+
     public $name;
     public $NegativeItems = [];
 
     public $submitsuccessalert = false;
+    public $submitsuccessquestionalert = false;
 
     public $productFeatures = [];
 
-    public $productReviews=[];
+    public $productReviews = [];
     public $shortDescription;
     public $longDescription;
 
     public $title;
     public $comment;
-
+    public $ProductQAs = [];
     public $activeTab = 0;
 
 
@@ -53,7 +63,7 @@ class Tabs extends Component
         $this->getProductReview($this->productId);
 
 
-
+        $this->getProductQA($this->productId);
         $this->changeTab(1);
 
 
@@ -68,7 +78,44 @@ class Tabs extends Component
 
 
 
+public function submitANswer($FormData){
 
+
+
+
+
+        $validator = Validator::make($FormData, [
+            "body" => 'required|string|max:100|min:9',
+            'questionId' => 'exists:questions,id',
+
+
+        ], [
+            '*.required' => 'فیلد ضروری است.',
+            '*.string' => 'فرمت اشتباه است !',
+            '*.max' => 'حداکثر تعداد کاراکترها : 100',
+            '*.min' => '  حداقل باید 10 کراکتر باشد',
+           'questionId.exists' => '  دسته بندی نامعتبر است'
+
+
+        ]);
+        $validator->validate();
+$this->resetValidation();
+
+
+        answer::query()->create([
+
+            'body' => $FormData['body'],
+            'question_id'=>$FormData['questionId'],
+
+            'product_id' => $this->productId,
+            'user_id' => Auth::id()
+        ]);
+
+        $this->submitsuccessquestionalert = true;
+
+
+
+}
 
     public function changeTab($tabNumber)
     {
@@ -86,6 +133,9 @@ class Tabs extends Component
 
         } elseif ($tabNumber == 4) {
             $this->getProductReview($this->productId);
+
+        } elseif ($tabNumber == 5) {
+            $this->getProductQA($this->productId);
         }
     }
 
@@ -117,9 +167,10 @@ class Tabs extends Component
     }
 
 
-    public function setVote($status,$ReviewId){
+    public function setVote($status, $ReviewId)
+    {
 
-            if(Auth::check()){
+        if (Auth::check()) {
 
             productReviewVote::query()->updateOrCreate(
                 [
@@ -134,10 +185,34 @@ class Tabs extends Component
 
 
             $this->getProductReview($this->productId);
-            }else{
+        } else {
 
-                return redirect()->route('client.auth.index');
-            }
+            return redirect()->route('client.auth.index');
+        }
+
+    }
+    public function setVoteAnswer($status, $AnswerId)
+    {
+
+        if (Auth::check()) {
+
+           answerVote::query()->updateOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'answer_id' => $AnswerId,
+                ]
+                ,
+                [
+                    'status' => $status
+                ]
+            );
+
+
+            $this->getProductQA($this->productId);
+        } else {
+
+            return redirect()->route('client.auth.index');
+        }
 
     }
 
@@ -152,27 +227,70 @@ class Tabs extends Component
             ->where('product_id', $productId)->get();
 
     }
+
+    public function getProductQA($productId){
+
+        $this->ProductQAs=Question::query()
+        ->with('user')->where(['product_id'=>$productId,'status' => 'approved'])
+        ->get();
+
+        $this->productAnswer = answer::query()
+
+            ->where([
+                'product_id' => $productId,
+
+
+            ])
+            ->with('user', 'answerVotes')
+            ->withCount([
+                'answerVotes as likeCount' => function ($query) {
+                    $query->where('status', 'like');
+                },
+                'answerVotes as dislikecount' => function ($query) {
+
+                    $query->where('status', 'dislike');
+                },
+
+            ])->withExists([
+                    'answerVotes as like' => function ($query) {
+                        $query->where('status', 'like');
+                    },
+
+                    'answerVotes as dislike' => function ($query) {
+                        $query->where('status', 'dislike');
+                    },
+
+                ])
+
+            ->get();
+
+
+
+
+
+
+    }
     public function getProductReview($productId)
     {
 
-       $this->productReviews=ProductReview::query()
+        $this->productReviews = ProductReview::query()
 
-       ->where([
-        'product_id'=>$productId,
-        'status'=>'approved',
+            ->where([
+                'product_id' => $productId,
+                'status' => 'approved',
 
-       ])
-       ->with('user','votes')
-       ->withCount([
-        'votes as likeCount'=>function($query){
-            $query->where('status','like');
-        },
-        'votes as dislikecount'=>function($query){
+            ])
+            ->with('user', 'votes')
+            ->withCount([
+                'votes as likeCount' => function ($query) {
+                    $query->where('status', 'like');
+                },
+                'votes as dislikecount' => function ($query) {
 
-            $query->where('status','dislike');
-        },
+                    $query->where('status', 'dislike');
+                },
 
-        ])->withExists([
+            ])->withExists([
                     'votes as like' => function ($query) {
                         $query->where('status', 'like');
                     },
@@ -181,9 +299,9 @@ class Tabs extends Component
                         $query->where('status', 'dislike');
                     },
 
-        ])
+                ])
 
-        -> get();
+            ->get();
 
 
 
@@ -194,23 +312,24 @@ class Tabs extends Component
 
 
 
-   public function addItem($type){
+    public function addItem($type)
+    {
 
-    $inputFiled=$type==='positive'?'InputPositive':'InputNegative';
-    $itemFiled=$type==='positive'?'positiveItems':'NegativeItems';
+        $inputFiled = $type === 'positive' ? 'InputPositive' : 'InputNegative';
+        $itemFiled = $type === 'positive' ? 'positiveItems' : 'NegativeItems';
 
 
         $this->validate([
             $inputFiled => 'required|min:3|max:50'
         ], [
-           $inputFiled. '.required' => 'فیلد الزامی است',
+            $inputFiled . '.required' => 'فیلد الزامی است',
             $inputFiled . '.min' => '  حداقل باید 3 کراکتر باشد',
             $inputFiled . '.max' => '  حداکثر باید 50 کراکتر باشد',
         ]);
 
-        $this->{ $itemFiled }[] = $this->{$inputFiled};
+        $this->{$itemFiled}[] = $this->{$inputFiled};
         $this->{$inputFiled} = '';
-   }
+    }
 
 
     public function submit($FormData)
@@ -297,9 +416,41 @@ class Tabs extends Component
 
     }
 
-    public function removeItem($type,$index){
+    public function removeItem($type, $index)
+    {
         $itemFiled = $type === 'positive' ? 'positiveItems' : 'NegativeItems';
         array_splice($this->{$itemFiled}, $index, 1);
+    }
+
+
+    public function submitQuestion($FormData)
+    {
+
+           $validator = Validator::make($FormData, [
+            "title" => 'required|string|max:100|min:9',
+
+
+        ], [
+            '*.required' => 'فیلد ضروری است.',
+            '*.string' => 'فرمت اشتباه است !',
+            '*.max' => 'حداکثر تعداد کاراکترها : 100',
+            '*.min' => '  حداقل باید 10 کراکتر باشد'
+
+
+        ]);
+        $validator->validate();
+        $this->resetValidation();
+
+        Question::query()->create([
+
+            'title' => $FormData['title'],
+
+            'product_id' => $this->productId,
+            'user_id' => Auth::id()
+        ]);
+        $this->reset( 'title');
+        $this->submitsuccessalert = true;
+
     }
 
     public function render()
