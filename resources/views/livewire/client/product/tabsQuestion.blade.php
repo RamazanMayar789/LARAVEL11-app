@@ -30,7 +30,7 @@
                     </ul>
                 </div>
                 <div>
-                    <p class="fs-9 text-secondary">100 پرسش</p>
+                    <p class="fs-9 text-secondary">{{ $count }} پرسش</p>
                 </div>
             </div>
             <!-- question has answer-->

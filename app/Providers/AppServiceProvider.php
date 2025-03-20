@@ -29,7 +29,8 @@ use App\Repositories\admin\sliderRepository;
 // use App\Repositories\client\first_page\firstpageRepositoryInterface;
 use App\Repositories\client\first_page\firstpageRepository;
 use App\Repositories\client\first_page\first_pageRepositoryInterface;
-
+use App\Repositories\client\product\ClientProductRepository;
+use App\Repositories\client\product\ClientProductRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
       $this->app->singleton(storyRepositoryInterface::class, storyRepository::class);
       $this->app->singleton(sliderRepositoryInterface::class, sliderRepository::class);
       $this->app->singleton(first_pageRepositoryInterface::class,firstpageRepository::class);
+      $this->app->singleton(ClientProductRepositoryInterface::class,ClientProductRepository::class);
+
 
     }
 

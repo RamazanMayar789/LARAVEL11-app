@@ -4,32 +4,23 @@ namespace App\Livewire\Client\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Repositories\client\product\ClientProductRepositoryInterface;
 
 class Index extends Component
 {
     public $product;
 
+private $repository;
 
+public function boot(ClientProductRepositoryInterface $repository){
+
+    $this->repository=$repository;
+}
 
     public function mount($p_code)
     {
 
-        $product = Product::query()
-            ->where('p_code', $p_code)
-            ->select(
-                'id',
-                'name',
-                'price',
-                'discount',
-                'discount_duration',
-                'category_id',
-                'stock',
-                'seller_id',
-                'p_code',
-                'featured'
-            )
-            ->with(['images', 'coverImage','seller'])
-            ->firstOrFail();
+        $product = $this->repository->getSingleProduct($p_code);
         if ($product) {
 
             $discountAmount = $product->discount ? ($product->price * $product->discount / 100) : 0;

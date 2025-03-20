@@ -9,6 +9,7 @@ use App\Models\ProductFeatureValue;
 use App\Models\ProductReview;
 use App\Models\productReviewVote;
 use App\Models\Question;
+use ClientProductRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Hekmatinasser\Verta\Verta;
@@ -19,6 +20,8 @@ class Tabs extends Component
 {
 
     public $afghanMonths;
+
+    public $count;
 
     public $body;
 
@@ -231,8 +234,11 @@ $this->resetValidation();
     public function getProductQA($productId){
 
         $this->ProductQAs=Question::query()
-        ->with('user')->where(['product_id'=>$productId,'status' => 'approved'])
+        ->with('user')
+        ->where(['product_id'=>$productId,'status' => 'approved'])
         ->get();
+
+        $this->count =Question::query()->where('status', 'approved')->count();
 
         $this->productAnswer = answer::query()
 
