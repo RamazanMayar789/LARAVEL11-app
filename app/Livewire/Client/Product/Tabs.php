@@ -9,6 +9,7 @@ use App\Models\ProductFeatureValue;
 use App\Models\ProductReview;
 use App\Models\productReviewVote;
 use App\Models\Question;
+use App\Repositories\client\product\ClientProductRepositoryInterface as ProductClientProductRepositoryInterface;
 use ClientProductRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -56,7 +57,13 @@ class Tabs extends Component
     public $activeTab = 0;
 
 
+private $repository;
 
+    public function boot(ProductClientProductRepositoryInterface $repository)
+    {
+
+        $this->repository = $repository;
+    }
 
     public function mount()
     {
@@ -175,16 +182,7 @@ $this->resetValidation();
 
         if (Auth::check()) {
 
-            productReviewVote::query()->updateOrCreate(
-                [
-                    'user_id' => Auth::id(),
-                    'product_reviews_id' => $ReviewId,
-                ]
-                ,
-                [
-                    'status' => $status
-                ]
-            );
+           $this->repository->setVote($status,$ReviewId);
 
 
             $this->getProductReview($this->productId);
@@ -199,16 +197,7 @@ $this->resetValidation();
 
         if (Auth::check()) {
 
-           answerVote::query()->updateOrCreate(
-                [
-                    'user_id' => Auth::id(),
-                    'answer_id' => $AnswerId,
-                ]
-                ,
-                [
-                    'status' => $status
-                ]
-            );
+          $this->repository->setVoteAnswer($status,$AnswerId);
 
 
             $this->getProductQA($this->productId);
@@ -225,50 +214,17 @@ $this->resetValidation();
 
 
 
-        $this->productFeatures = ProductFeatureValue::query()
-            ->with(['categoryFeature', 'categoryFeatureValue'])
-            ->where('product_id', $productId)->get();
+        $this->productFeatures = $this->repository->getProductFeatures($productId);
 
     }
 
     public function getProductQA($productId){
 
-        $this->ProductQAs=Question::query()
-        ->with('user')
-        ->where(['product_id'=>$productId,'status' => 'approved'])
-        ->get();
+        $this->ProductQAs=$this->repository->getProductQA($productId);
 
-        $this->count =Question::query()->where('status', 'approved')->count();
+        $this->count =$this->repository->countqa();
 
-        $this->productAnswer = answer::query()
-
-            ->where([
-                'product_id' => $productId,
-
-
-            ])
-            ->with('user', 'answerVotes')
-            ->withCount([
-                'answerVotes as likeCount' => function ($query) {
-                    $query->where('status', 'like');
-                },
-                'answerVotes as dislikecount' => function ($query) {
-
-                    $query->where('status', 'dislike');
-                },
-
-            ])->withExists([
-                    'answerVotes as like' => function ($query) {
-                        $query->where('status', 'like');
-                    },
-
-                    'answerVotes as dislike' => function ($query) {
-                        $query->where('status', 'dislike');
-                    },
-
-                ])
-
-            ->get();
+        $this->productAnswer = $this->repository->answer($productId);
 
 
 
@@ -279,38 +235,7 @@ $this->resetValidation();
     public function getProductReview($productId)
     {
 
-        $this->productReviews = ProductReview::query()
-
-            ->where([
-                'product_id' => $productId,
-                'status' => 'approved',
-
-            ])
-            ->with('user', 'votes')
-            ->withCount([
-                'votes as likeCount' => function ($query) {
-                    $query->where('status', 'like');
-                },
-                'votes as dislikecount' => function ($query) {
-
-                    $query->where('status', 'dislike');
-                },
-
-            ])->withExists([
-                    'votes as like' => function ($query) {
-                        $query->where('status', 'like');
-                    },
-
-                    'votes as dislike' => function ($query) {
-                        $query->where('status', 'dislike');
-                    },
-
-                ])
-
-            ->get();
-
-
-
+        $this->productReviews = $this->repository->getProductReview($productId);
 
 
     }
@@ -360,15 +285,8 @@ $this->resetValidation();
         $validator->validate();
         $this->resetValidation();
 
-        ProductReview::query()->create([
-
-            'title' => $FormData['title'],
-            'comment' => $FormData['comment'],
-            'positive' => implode(',', $this->positiveItems),
-            'negative' => implode(',', $this->NegativeItems),
-            'product_id' => $this->productId,
-            'user_id' => Auth::id()
-        ]);
+      $this->repository->submitProductReviews($FormData,$this->productId,
+      $this->positiveItems,$this->NegativeItems);
         $this->reset('comment', 'title', 'InputNegative', 'InputPositive');
         $this->submitsuccessalert = true;
 
@@ -446,14 +364,8 @@ $this->resetValidation();
         ]);
         $validator->validate();
         $this->resetValidation();
+$this->repository->submitQuestion($FormData,$this->productId);
 
-        Question::query()->create([
-
-            'title' => $FormData['title'],
-
-            'product_id' => $this->productId,
-            'user_id' => Auth::id()
-        ]);
         $this->reset( 'title');
         $this->submitsuccessalert = true;
 
