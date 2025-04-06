@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Admin;
 use App\Repositories\admin\PaymentMethodeRepository;
 use App\Repositories\admin\PaymentMethodeRepositoryInterface;
+use App\Repositories\client\cart\ClientCartRepositiry;
+use ClientCartRepositoryInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\admin\CityRepository;
@@ -26,11 +28,13 @@ use App\Repositories\admin\storyRepositoryInterface;
 use App\Repositories\admin\sliderRepositoryInterface;
 use App\Repositories\admin\storyRepository;
 use App\Repositories\admin\sliderRepository;
+use App\Repositories\client\cart\ClientCartRepositoryInterface as CartClientCartRepositoryInterface;
 // use App\Repositories\client\first_page\firstpageRepositoryInterface;
 use App\Repositories\client\first_page\firstpageRepository;
 use App\Repositories\client\first_page\first_pageRepositoryInterface;
 use App\Repositories\client\product\ClientProductRepository;
 use App\Repositories\client\product\ClientProductRepositoryInterface;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
       $this->app->singleton(sliderRepositoryInterface::class, sliderRepository::class);
       $this->app->singleton(first_pageRepositoryInterface::class,firstpageRepository::class);
       $this->app->singleton(ClientProductRepositoryInterface::class,ClientProductRepository::class);
+      $this->app->singleton(CartClientCartRepositoryInterface::class, ClientCartRepositiry::class);
 
 
     }

@@ -1,16 +1,16 @@
 <div class="cart-left">
     <div class="cart-invoice">
         <div class="mb-3 d-flex justify-content-between">
-            <span>قیمت کالاها (۴) </span>
-            <span>۶۷,۸۷۰,۰۰۰ تومان </span>
+            <span>قیمت کالاها ({{ $invoice['totalProductCount'] }}) </span>
+            <span>{{ number_format($invoice['totaloriginalPrice']) }} افغانی </span>
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <span>جمع سبد خرید </span>
-            <span>۶۷,۱۹۹,۰۰۰ تومان </span>
+            <span>{{ number_format($invoice['totaldiscountPrice']) }} افغانی </span>
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <span>سود شما از خرید </span>
-            <span>(۱٪) ۶۷۱,۰۰۰ تومان </span>
+            <span>(۱٪) {{ number_format($invoice['totaldiscountAmount']) }} افغانی </span>
         </div>
 
         <button class="addToBasket-btn w-100 d-md-none d-sm-none">
@@ -23,7 +23,7 @@
             </button>
             <div>
                 <span class="d-block">جمع سبد خرید</span>
-                <span>۶۷,۱۹۹,۰۰۰ تومان </span>
+                <span>{{ number_format($invoice['totaldiscountPrice']) }} افغانی </span>
             </div>
         </div>
     </div>

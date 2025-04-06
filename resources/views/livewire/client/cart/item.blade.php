@@ -36,21 +36,30 @@
             <div class="mt-3 cart-item__footer d-flex align-items-center">
                 <!-- counter -->
                 <div class="cart-counter">
-                    <button class="cart-counter__add">
+                    <button {{ $outOfstock ? 'disable' : '' }} class="cart-counter__add {{ $outOfstock ? 'disabled-btn' : '' }}"  wire:click="updateCartQuantity({{ $item->id }},'increment')">
                         <i class="fa fa-plus"></i>
                     </button>
 
-                    <span class="cart-counter__number">1</span>
-                    <button class="cart-counter__remove">
-                        <i class="fa fa-trash"></i>
-                    </button>
+                    <span class="cart-counter__number">{{ $item->quantity }}</span>
+
+                    @if ($item->quantity == 1)
+                        <button class="cart-counter__remove" wire:click="updateCartQuantity({{ $item->id }},'decrement')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        @else
+
+                            <button class="cart-counter__remove" wire:click="updateCartQuantity({{ $item->id }},'decrement')">
+                                <i class="fa fa-dash"></i>
+                            </button>
+                        @endif
+
                 </div>
                 <!-- product price -->
                 <div class="cart-item__footer-price">
                     <span class="cart-item__footer-discounted-price">
-                        تخفیف افغانی {{ number_format(($item->product->price*$item->product->discount)/100) }}
+                        تخفیف افغانی {{ number_format($item->discountAmount) }}
                     </span>
-                    <span class="cart-item__footer-new-price">{{ number_format($item->product->price) }}</span>
+                    <span class="cart-item__footer-new-price">{{ number_format($item->discountedPrice) }}</span>
                     افغانی
                 </div>
             </div>

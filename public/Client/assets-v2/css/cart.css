@@ -1,3 +1,7 @@
+.disabled-btn{
+opacity: 50%;
+
+}
 .cart-right {
   width: 80%;
   border: 1px solid var(--primary-border-color);
