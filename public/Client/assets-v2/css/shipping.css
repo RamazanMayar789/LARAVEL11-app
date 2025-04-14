@@ -11,6 +11,12 @@
     justify-content: center;
 }
 
+.validation-error{
+
+    color: var(--primary-color);
+    
+}
+
 .shipping-top .logo {
     width: 200px;
 }

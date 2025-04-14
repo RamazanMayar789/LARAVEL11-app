@@ -27,3 +27,12 @@ $(document).ready(function () {
 
 
 });
+
+document.addEventListener('close-modaal',()=>{
+
+const modal=document.getElementById('addressModal');
+
+if(modal){
+    modal.style.display='none';
+}
+});

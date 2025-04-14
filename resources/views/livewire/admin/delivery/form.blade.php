@@ -16,7 +16,7 @@
                                 <div class="col-sm-12">
                                     <label class="form-label" for="name">نام روش ارسال</label>
                                     <input type="text" class="form-control" wire:model.blur='name' id="name" name="name" wire:model="name"
-                                        placeholder="لطفا نام ولایت خود را وارد کنید">
+                                        placeholder="لطفا نام میتود ارسال خود را وارد کنید">
                                 </div>
                             </div>
                             @error('name')

@@ -4,6 +4,7 @@ use App\Livewire\Client\Auth\Index as clientIndex;
 use App\Livewire\Client\Home\Index as HomeIndex;
 use App\Livewire\Client\Product\Index as ProductIndex;
 use App\Livewire\Client\Cart\Index as CartIndex;
+use App\Livewire\Client\Shipping\Index as ShippingIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::name('client.')->group(function () {
@@ -22,6 +23,7 @@ Route::name('client.')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/checkout/cart', CartIndex::class)->name('cart.index');
+        Route::get('/checkout/shipping', ShippingIndex::class)->name('Shipping.index');
         Route::get('/logout', [clientIndex::class, 'clientlogout'])->name('logout');
 
     });
