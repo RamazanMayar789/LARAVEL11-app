@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('limit');
             $table->integer('main_purchase');
             $table->dateTime('expire_at');
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
 
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->timestamps();

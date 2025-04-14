@@ -17,6 +17,7 @@ use App\Livewire\Admin\Story\Index as StoryIndex;
 use App\Livewire\Admin\Slider\Index as SliderIndex;
 use App\Livewire\Admin\Product\CKUplode;
 use App\Livewire\Admin\Product\Index as ProductIndex;
+use App\Livewire\Admin\Discount\Index as DiscountIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function(){
@@ -37,6 +38,7 @@ Route::name('admin.')->group(function(){
     Route::get('/story', StoryIndex::class)->name('story.index');
     Route::get('/slider', SliderIndex::class)->name('slider.index');
     Route::post('/ck-uplode/{product}', [CKUplode::class, 'uplode'])->name('ck-uplode');
+    Route::get('/discount/code', DiscountIndex::class)->name('discount.code');
 
 
 });
